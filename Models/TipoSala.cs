@@ -2,7 +2,7 @@
 {
     public class TipoSala
 {
-        public string Nombre;
-        public double Precio;
+        public string Nombre {get; set; }
+        public double Precio {get; set; }
 }
 }

@@ -2,11 +2,11 @@
 {
     public class Funcion
 {
-        public DateTime Fecha;
-        public double Hora;
-        public string Descripcion;
-        public int ButacasDisponibles;
-        public Boolean Confirmado;
-        public List<Reserva> Reservas;
+        public DateTime Fecha {get; set; }
+        public double Hora {get; set; }
+        public string Descripcion {get; set; }
+        public int ButacasDisponibles {get; set; }
+        public Boolean Confirmado {get; set; }
+        public List<Reserva> Reservas {get; set; }
 }
 }

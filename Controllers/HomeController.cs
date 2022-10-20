@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Proyecto1.Models;
+using System;
 using System.Diagnostics;
+using System.Text.Json
 
 namespace Proyecto1.Controllers
 {
@@ -15,11 +17,17 @@ namespace Proyecto1.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 
 
         public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult Registrarse()
         {
             return View();
         }

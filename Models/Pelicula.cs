@@ -2,9 +2,9 @@
 {
     public class Pelicula
 {
-        public DateTime FechaLanzamiento;
-        public string Titulo;
-        public string Descripción;
-        public List<Funcion> Funciones;
+        public DateTime FechaLanzamiento {get; set; }
+        public string Titulo {get; set; }
+        public string Descripción {get; set; }
+        public List<Funcion> Funciones {get; set; }
 }
 }

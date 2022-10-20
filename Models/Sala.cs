@@ -2,9 +2,9 @@
 {
     public class Sala
 {
-        public int Numero;
-        public int CapacidadButacas;
-        public List<Funcion> Funciones;
-        public TipoSala TipoSala;
+        public int Numero {get; set; }
+        public int CapacidadButacas {get; set; }
+        public List<Funcion> Funciones {get; set; }
+        public TipoSala TipoSala {get; set; }
 }
 }

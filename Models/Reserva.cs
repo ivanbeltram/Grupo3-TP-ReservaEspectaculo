@@ -2,9 +2,9 @@
 {
     public class Reserva
 {
-        public DateTime FechaAlta;
-        public int CantidadButacas;
-        public Cliente Cliente;
-        public Funcion Funcion;
+        public DateTime FechaAlta {get; set; }
+        public int CantidadButacas {get; set; }
+        public Cliente Cliente {get; set; }
+        public Funcion Funcion {get; set; }
 }
 }

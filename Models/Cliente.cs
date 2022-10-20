@@ -2,13 +2,13 @@
 {
     public class Cliente
     {
-        public String Nombre;
-        public String Apellido;
-        public String DNI;
-        public String Telefono;
-        public String Direccion;
-        public String Email;
-        public DateTime FechaAlta;
-        public List<Reserva> Reservas;
+        public String Nombre {get; set; }
+        public String Apellido {get; set; }
+        public String DNI {get; set; }
+        public String Telefono {get; set; }
+        public String Direccion {get; set; }
+        public String Email {get; set; }
+        public DateTime FechaAlta {get; set; }
+        public List<Reserva> Reservas {get; set; }
     }
 }

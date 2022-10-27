@@ -2,7 +2,8 @@
 {
     public class Genero
 {
-    public string Nombre;
-    public List<Pelicula> Peliculas; 
-}
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public List<Pelicula> Peliculas { get; set; }
+    }
 }

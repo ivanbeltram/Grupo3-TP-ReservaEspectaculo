@@ -1,10 +1,57 @@
-﻿namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
+﻿using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Helpers;
+using System.ComponentModel.DataAnnotations;
+
+namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
 {
     public class Usuario
 {
-        public string Nombre;
-        public string Email;
-        public DateTime FechaAlta;
-        public string Password;
-}
+		public int Id { get; set; }
+
+		[Required(ErrorMessage = MensajesDeError.Requerido)]
+		[RegularExpression(@"[a-zA-Z áéíóú]*", ErrorMessage = MensajesDeError.StrSoloAlfab)]
+		public string Nombre { get; set; }
+
+		[Required(ErrorMessage = MensajesDeError.Requerido)]
+		[RegularExpression(@"[a-zA-Z áéíóú]*", ErrorMessage = MensajesDeError.StrSoloAlfab)]
+		public string Apellido { get; set; }
+
+		public string NombreCompleto {
+			get {
+				if (string.IsNullOrEmpty(Nombre) && string.IsNullOrEmpty(Apellido)) return "Sin definir";
+				if (string.IsNullOrEmpty(Nombre)) return Apellido.ToUpper();
+				if (string.IsNullOrEmpty(Apellido)) return Nombre;
+				return $"{Apellido.ToUpper()},{Nombre}";
+			}
+		}
+
+		[Required(ErrorMessage = MensajesDeError.Requerido)]
+		[EmailAddress(ErrorMessage = MensajesDeError.EmailInvalido)]
+		public string Email { get; set; }
+
+		[Required(ErrorMessage = MensajesDeError.Requerido)]
+		public string Password { get; set; }
+
+		[Required(ErrorMessage = MensajesDeError.Requerido)]
+		[Range(1000000,99999999, ErrorMessage = MensajesDeError.DniInvalido)]
+		public string Dni { get; set; }
+
+		public string Telefono { get; set; }
+
+		public string Direccion { get; set; }
+
+		[DataType(DataType.DateTime)]
+		public DateTime FechaAlta { get; set; }
+
+/*		public Usuario(string Nombre, string Apellido, string Dni, string Telefono, string Direccion, string Email)
+		{
+			this.Nombre = Nombre;
+			this.Apellido = Apellido;
+			this.Dni = Dni;
+			this.Telefono = Telefono;
+			this.Direccion = Direccion;
+			this.Email = Email;
+			this.FechaAlta = DateTime.Now;
+		}*/
+
+	}
 }

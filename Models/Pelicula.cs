@@ -2,9 +2,12 @@
 {
     public class Pelicula
 {
-        public DateTime FechaLanzamiento;
-        public string Titulo;
-        public string Descripción;
-        public List<Funcion> Funciones;
-}
+        public int Id { get; set; }
+        public string Titulo { get; set; }
+        public string Descripción { get; set; }
+        public int GeneroId { get; set; }
+        public Genero Genero { get; set; }
+        public DateTime FechaLanzamiento { get; set; }
+        public List<Sala> Salas { get; set; }
+    }
 }

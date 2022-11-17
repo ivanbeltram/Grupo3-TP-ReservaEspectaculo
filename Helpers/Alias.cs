@@ -3,6 +3,7 @@
     public static class Alias
     {
         public const string ClienteId = "Cliente";
+        public const string GeneroId = "Género";
         public const string PeliculaId = "Película";
         public const string ReservaId = "Reserva";
         public const string SalaId = "Sala";

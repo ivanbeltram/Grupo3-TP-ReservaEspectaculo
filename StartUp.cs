@@ -1,4 +1,7 @@
-﻿namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo
+﻿using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo
 {
     public static class StartUp
     {
@@ -13,7 +16,10 @@
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
             // Add services to the container.
+            builder.Services.AddDbContext<CineContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CineDBCS")));
+
             builder.Services.AddControllersWithViews();
+
         }
         private static void Configure(WebApplication app)
         {

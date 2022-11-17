@@ -5,17 +5,16 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
 {
     public class Reserva
 {
+        [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage = MensajesDeError.Requerido)]
-        [Key]
         [Display(Name = Alias.SalaId)]
         public int SalaId { get; set; }
 
         public Sala Sala { get; set; }
 
         [Required(ErrorMessage = MensajesDeError.Requerido)]
-        [Key]
         [Display(Name = Alias.ClienteId)]
         public int ClienteId { get; set; }
 

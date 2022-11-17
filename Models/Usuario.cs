@@ -3,8 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
 {
-    public class Usuario
+    public abstract class Usuario
 {
+		[Key]
 		public int Id { get; set; }
 
 		[Required(ErrorMessage = MensajesDeError.Requerido)]
@@ -41,17 +42,5 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
 
 		[DataType(DataType.DateTime)]
 		public DateTime FechaAlta { get; set; }
-
-/*		public Usuario(string Nombre, string Apellido, string Dni, string Telefono, string Direccion, string Email)
-		{
-			this.Nombre = Nombre;
-			this.Apellido = Apellido;
-			this.Dni = Dni;
-			this.Telefono = Telefono;
-			this.Direccion = Direccion;
-			this.Email = Email;
-			this.FechaAlta = DateTime.Now;
-		}*/
-
 	}
 }

@@ -54,7 +54,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Email,Password,Dni,Telefono,Direccion,FechaAlta")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Email,Dni,PhoneNumber,Direccion,FechaAlta")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email,Password,Dni,Telefono,Direccion,FechaAlta")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email,Dni,PhoneNumber,Direccion,FechaAlta")] Usuario usuario)
         {
             if (id != usuario.Id)
             {

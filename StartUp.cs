@@ -1,5 +1,7 @@
 ﻿using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models;
 
 namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo
 {
@@ -17,7 +19,12 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo
         {
             // Add services to the container.
             builder.Services.AddDbContext<CineContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CineDBCS")));
-
+            builder.Services.AddIdentity<Usuario, Rol>().AddEntityFrameworkStores<CineContext>();
+            builder.Services.Configure<IdentityOptions>(opciones =>
+                {
+                  opciones.Password.RequiredLength = 8;
+                }
+            );
             builder.Services.AddControllersWithViews();
 
         }
@@ -36,6 +43,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

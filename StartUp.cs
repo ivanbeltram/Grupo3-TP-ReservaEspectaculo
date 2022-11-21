@@ -1,4 +1,7 @@
-﻿namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo
+﻿using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo
 {
     public static class StartUp
     {
@@ -12,16 +15,15 @@
         }
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
-            // Add services to the container.
+            builder.Services.AddDbContext<CineContext>(options => options.UseInMemoryDatabase("CineDb"));
+
             builder.Services.AddControllersWithViews();
         }
         private static void Configure(WebApplication app)
         {
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

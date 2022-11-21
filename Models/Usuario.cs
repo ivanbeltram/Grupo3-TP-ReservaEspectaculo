@@ -5,6 +5,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
 {
     public class Usuario
 {
+		[Key]
 		public int Id { get; set; }
 
 		[Required(ErrorMessage = MensajesDeError.Requerido)]
@@ -29,29 +30,16 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
 		public string Email { get; set; }
 
 		[Required(ErrorMessage = MensajesDeError.Requerido)]
-		public string Password { get; set; }
-
-		[Required(ErrorMessage = MensajesDeError.Requerido)]
 		[Range(1000000,99999999, ErrorMessage = MensajesDeError.DniInvalido)]
 		public string Dni { get; set; }
 
-		public string Telefono { get; set; }
+		[Display(Name = Alias.Telefono)]
+		public string PhoneNumber { get; set; }
 
 		public string Direccion { get; set; }
 
 		[DataType(DataType.DateTime)]
 		public DateTime FechaAlta { get; set; }
-
-/*		public Usuario(string Nombre, string Apellido, string Dni, string Telefono, string Direccion, string Email)
-		{
-			this.Nombre = Nombre;
-			this.Apellido = Apellido;
-			this.Dni = Dni;
-			this.Telefono = Telefono;
-			this.Direccion = Direccion;
-			this.Email = Email;
-			this.FechaAlta = DateTime.Now;
-		}*/
 
 	}
 }

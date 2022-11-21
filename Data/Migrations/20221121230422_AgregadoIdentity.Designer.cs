@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Data;
 
@@ -11,9 +12,10 @@ using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Data;
 namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Data.Migrations
 {
     [DbContext(typeof(CineContext))]
-    partial class CineContextModelSnapshot : ModelSnapshot
+    [Migration("20221121230422_AgregadoIdentity")]
+    partial class AgregadoIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

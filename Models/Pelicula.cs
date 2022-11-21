@@ -10,7 +10,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
         [Required(ErrorMessage = MensajesDeError.Requerido)]
         public string Titulo { get; set; }
         [Required(ErrorMessage = MensajesDeError.Requerido)]
-        [Display(Name = "Descripción")]
+        [Display(Name = Alias.Descripcion)]
         public string Descripcion { get; set; }
         [Required(ErrorMessage = MensajesDeError.Requerido)]
         [Display(Name = Alias.GeneroId)]

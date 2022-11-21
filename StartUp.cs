@@ -15,7 +15,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo
         }
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
-            builder.Services.AddDbContext<CineContext>(options => options.UseInMemoryDatabase("CineDb"));
+            builder.Services.AddDbContext<CineContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CineDBCS")));
 
             builder.Services.AddControllersWithViews();
         }

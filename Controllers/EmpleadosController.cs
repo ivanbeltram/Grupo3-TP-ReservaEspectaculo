@@ -103,7 +103,6 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                         return NotFound();
                     }
 
-                    empleadoEnDb.Legajo = empleado.Legajo;
                     empleadoEnDb.PhoneNumber = empleado.PhoneNumber;
                     empleadoEnDb.Direccion = empleado.Direccion;
 

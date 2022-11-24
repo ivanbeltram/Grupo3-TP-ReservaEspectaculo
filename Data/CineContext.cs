@@ -22,9 +22,9 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Data
 
             modelBuilder.Entity<IdentityUserRole<int>>().ToTable("UsuariosRoles");
 
-//            modelBuilder.HasSequence<int>("LegajosEmpleados").StartsAt(110000).IncrementsBy(1);
+            modelBuilder.HasSequence<int>("LegajosEmpleados").StartsAt(110000).IncrementsBy(1);
 
-//            modelBuilder.Entity<Empleado>().Property(e => e.Legajo).HasDefaultValueSql("NEXT VALUE FOR LegajosEmpleados");
+            modelBuilder.Entity<Empleado>().Property(e => e.Legajo).HasDefaultValueSql("NEXT VALUE FOR LegajosEmpleados");
         }
 
         public DbSet<Cliente> Clientes { get; set; }

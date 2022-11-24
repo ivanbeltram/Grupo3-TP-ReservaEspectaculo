@@ -97,7 +97,16 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             {
                 try
                 {
-                    _context.Clientes.Update(cliente);
+                    var clienteEnDb = _context.Clientes.Find(cliente.Id);
+                    if (clienteEnDb == null)
+                    {
+                        return NotFound();
+                    }
+
+                    clienteEnDb.PhoneNumber = cliente.PhoneNumber;
+                    clienteEnDb.Direccion = cliente.Direccion;
+
+                    _context.Clientes.Update(clienteEnDb);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

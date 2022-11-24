@@ -4,7 +4,10 @@
     {
         public const string ClienteId = "Cliente";
         public const string Descripcion = "Descripción";
+        public const string Email = "Correo electrónico";
         public const string GeneroId = "Género";
+        public const string Password = "Contraseña";
+        public const string PasswordConfirm = "Confirmación de contraseña";
         public const string PeliculaId = "Película";
         public const string ReservaId = "Reserva";
         public const string RoleName = "Rol";

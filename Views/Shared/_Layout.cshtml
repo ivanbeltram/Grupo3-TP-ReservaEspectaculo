@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Proyecto1</title>
+    <title>@ViewData["Title"] - ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
@@ -27,7 +27,7 @@
                             <a class="nav-link active" aria-current="page" href="#">@ViewBag.Login - Ingresar/Registrarse</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Peliculas</a>
+                            <a class="nav-link" asp-area="" asp-controller="Peliculas" asp-action="Index">Películas</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,7 +42,17 @@
                                 <li><a class="dropdown-item" href="#">Ciencia Ficción</a></li>
                                 <li><a class="dropdown-item" href="#">Documental</a></li>
                                 <li><a class="dropdown-item" href="#">Animación</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Generos" asp-action="Index">Géneros</a></li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Registrar">Registrarse</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="IniciarSesion">Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="CerrarSesion">Cerrar sesión</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link">Sobre nosotres</a>
@@ -64,7 +74,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Proyecto1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

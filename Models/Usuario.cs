@@ -25,6 +25,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
 
 		[Required(ErrorMessage = MensajesDeError.Requerido)]
 		[EmailAddress(ErrorMessage = MensajesDeError.EmailInvalido)]
+		[Display(Name = Alias.Email)]
 		public override string Email
 		{
 			get { return base.Email; }

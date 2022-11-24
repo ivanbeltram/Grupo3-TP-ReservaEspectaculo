@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Proyecto1.Models;
+using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models;
 using System.Diagnostics;
 
-namespace Proyecto1.Controllers
+namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
 {
     public class HomeController : Controller
     {

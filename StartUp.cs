@@ -27,7 +27,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo
                     opciones.Password.RequireLowercase = false;
                     opciones.Password.RequireUppercase = false;
                     opciones.Password.RequireDigit = false;
-                    opciones.Password.RequiredLength = 8;
+                    opciones.Password.RequiredLength = 4;
                 }
             );
 

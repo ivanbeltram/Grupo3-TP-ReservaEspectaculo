@@ -20,8 +20,6 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.ViewModels
 		public string Email { get; set; }
 		[Required(ErrorMessage = MensajesDeError.Requerido)]
 		public string Rol { get; set; }
-		[DataType(DataType.DateTime)]
-		public DateTime FechaAlta { get; set; }
 		[Required(ErrorMessage = MensajesDeError.Requerido)]
 		[DataType(DataType.Password)]
 		[Display(Name = Alias.Password)]

@@ -21,7 +21,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Registrar([Bind("Nombre,Apellido,Dni,Email,Rol,FechaAlta,Password,ConfirmacionPassword")]RegistroUsuario usuario)
+        public async Task<IActionResult> Registrar([Bind("Nombre,Apellido,Dni,Email,Rol,Password,ConfirmacionPassword")]RegistroUsuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -73,6 +73,35 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 }
             }
             return View();
+        }
+        
+        public async Task<IActionResult> IniciarSesion()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> IniciarSesion(Login login)
+        {
+            if (ModelState.IsValid)
+            {
+                var resultado = await _signInManager.PasswordSignInAsync(login.Email, login.Password, login.Recordarme, false);
+
+                if (resultado.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                } else
+                {
+                    ModelState.AddModelError(String.Empty, "Inicio de sesión inválido.");
+                }
+            }
+            return null;
+        }
+        
+        public async Task<IActionResult> CerrarSesion()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

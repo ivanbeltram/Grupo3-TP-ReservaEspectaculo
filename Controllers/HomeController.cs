@@ -18,12 +18,10 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             return View();
         }
 
-
-        public IActionResult Login()
+        public async Task<IActionResult> Privacy()
         {
             return View();
         }
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

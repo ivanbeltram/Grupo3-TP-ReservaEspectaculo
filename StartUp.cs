@@ -2,6 +2,7 @@
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo
 {
@@ -30,6 +31,13 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo
                     opciones.Password.RequiredLength = 4;
                 }
             );
+
+            builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme, opciones =>
+            {
+                opciones.LoginPath = "/Account/IniciarSesion";
+                opciones.AccessDeniedPath = "/Account/AccesoDenegado";
+                opciones.Cookie.Name = "IdentidadCineApp";
+            });
 
             builder.Services.AddControllersWithViews();
         }

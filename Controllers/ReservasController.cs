@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models;
 
 namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
 {
+    [Authorize]
     public class ReservasController : Controller
     {
         private readonly CineContext _context;

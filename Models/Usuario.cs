@@ -17,9 +17,9 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
 		public string NombreCompleto {
 			get {
 				if (string.IsNullOrEmpty(Nombre) && string.IsNullOrEmpty(Apellido)) return "Sin definir";
-				if (string.IsNullOrEmpty(Nombre)) return Apellido.ToUpper();
+				if (string.IsNullOrEmpty(Nombre)) return Apellido;
 				if (string.IsNullOrEmpty(Apellido)) return Nombre;
-				return $"{Apellido.ToUpper()},{Nombre}";
+				return $"{Nombre} {Apellido}";
 			}
 		}
 

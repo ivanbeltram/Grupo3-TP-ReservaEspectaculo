@@ -45,6 +45,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             }
 
             ViewBag.Genero = _context.Generos.Where(g => g.Id == pelicula.GeneroId).ToList();
+            ViewBag.listaDeSalas = _context.Salas.Where(s => s.PeliculaID == id).ToList();
 
             return View(pelicula);
         }

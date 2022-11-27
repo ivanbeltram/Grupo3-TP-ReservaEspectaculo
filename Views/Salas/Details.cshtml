@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    List<Pelicula> pelicula = (List<Pelicula>)ViewBag.Pelicula;
 }
 
 <h1>Details</h1>
@@ -44,7 +45,7 @@
             @Html.DisplayNameFor(model => model.Pelicula)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Pelicula.Descripcion)
+            <h8>@Html.ActionLink(@pelicula.First().Titulo, "Details", "Peliculas", new { id = @pelicula.First().Id })</h8>
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Fecha)

@@ -13,26 +13,14 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="NumeroDeSala" class="control-label"></label>
-                <input asp-for="NumeroDeSala" class="form-control" />
-                <span asp-validation-for="NumeroDeSala" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="NumeroDeSala" />
             <div class="form-group">
                 <label asp-for="TipoSala" class="control-label"></label>
                 <input asp-for="TipoSala" class="form-control" />
                 <span asp-validation-for="TipoSala" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CapacidadButacas" class="control-label"></label>
-                <input asp-for="CapacidadButacas" class="form-control" />
-                <span asp-validation-for="CapacidadButacas" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ButacasDisponibles" class="control-label"></label>
-                <input asp-for="ButacasDisponibles" class="form-control" />
-                <span asp-validation-for="ButacasDisponibles" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="CapacidadButacas" />
+            <input type="hidden" asp-for="ButacasDisponibles" />
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Confirmada" /> @Html.DisplayNameFor(model => model.Confirmada)
@@ -43,11 +31,7 @@
                 <select asp-for="PeliculaID" class="form-control" asp-items="ViewBag.PeliculaID"></select>
                 <span asp-validation-for="PeliculaID" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Fecha" class="control-label"></label>
-                <input asp-for="Fecha" class="form-control" />
-                <span asp-validation-for="Fecha" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="Fecha" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

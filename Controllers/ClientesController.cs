@@ -12,7 +12,6 @@ using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models;
 
 namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
 {
-    [Authorize(Roles = Configs.Empleado)]
     public class ClientesController : Controller
     {
         private readonly CineContext _context;

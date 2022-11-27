@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Data;
+using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Helpers;
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models;
+using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.ViewModels;
 
 namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
 {
@@ -42,13 +44,15 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 return NotFound();
             }
 
+            ViewBag.Pelicula = _context.Peliculas.Where(p => p.Id == sala.PeliculaID).ToList();
+
             return View(sala);
         }
 
         // GET: Salas/Create
         public IActionResult Create()
         {
-            ViewData["PeliculaID"] = new SelectList(_context.Peliculas, "Id", "Descripcion");
+            ViewData["PeliculaID"] = new SelectList(_context.Peliculas, "Id", "Titulo");
             return View();
         }
 
@@ -57,16 +61,36 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NumeroDeSala,TipoSala,CapacidadButacas,ButacasDisponibles,Confirmada,PeliculaID,Fecha")] Sala sala)
+        public async Task<IActionResult> Create([Bind("NumeroDeSala,TipoSala,CapacidadButacas,PeliculaID,Fecha")] NuevaSala nuevaSala)
         {
+
             if (ModelState.IsValid)
             {
-                _context.Salas.Add(sala);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (!SalaEnUso(nuevaSala.NumeroDeSala, nuevaSala.Fecha))
+                {
+                    Sala s = new Sala()
+                    {
+                        NumeroDeSala = nuevaSala.NumeroDeSala,
+                        TipoSala = nuevaSala.TipoSala,
+                        CapacidadButacas = nuevaSala.CapacidadButacas,
+                        ButacasDisponibles = nuevaSala.CapacidadButacas,
+                        Confirmada = true,
+                        PeliculaID = nuevaSala.PeliculaID,
+                        Fecha = nuevaSala.Fecha
+                    };
+
+                    _context.Salas.Add(s);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, MensajesDeError.SalaEnUso);
+                    return View();
+                }
             }
-            ViewData["PeliculaID"] = new SelectList(_context.Peliculas, "Id", "Descripcion", sala.PeliculaID);
-            return View(sala);
+            ViewData["PeliculaID"] = new SelectList(_context.Peliculas, "Id", "Titulo", nuevaSala.PeliculaID);
+            return View(nuevaSala);
         }
 
         // GET: Salas/Edit/5
@@ -82,7 +106,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             {
                 return NotFound();
             }
-            ViewData["PeliculaID"] = new SelectList(_context.Peliculas, "Id", "Descripcion", sala.PeliculaID);
+            ViewData["PeliculaID"] = new SelectList(_context.Peliculas, "Id", "Titulo", sala.PeliculaID);
             return View(sala);
         }
 
@@ -118,7 +142,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PeliculaID"] = new SelectList(_context.Peliculas, "Id", "Descripcion", sala.PeliculaID);
+            ViewData["PeliculaID"] = new SelectList(_context.Peliculas, "Id", "Titulo", sala.PeliculaID);
             return View(sala);
         }
 
@@ -155,14 +179,30 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             {
                 _context.Salas.Remove(sala);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SalaExists(int id)
         {
-          return _context.Salas.Any(e => e.Id == id);
+            return _context.Salas.Any(e => e.Id == id);
+        }
+
+        private bool SalaEnUso(int numeroDeSala, DateTime fecha)
+        {
+            bool salaEnUso = false;
+            List<Sala> listaDeSalas = _context.Salas.ToList();
+            int i = 0;
+            while (i < listaDeSalas.Count && listaDeSalas.ElementAt(i).Id != numeroDeSala && listaDeSalas.ElementAt(i).Fecha.ToString().Equals(fecha.ToString()))
+            {
+                i++;
+            }
+            if (i < listaDeSalas.Count)
+            {
+                salaEnUso = true;
+            }
+            return salaEnUso;
         }
     }
 }

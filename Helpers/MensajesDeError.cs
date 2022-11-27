@@ -6,7 +6,9 @@
         public const string EmailInvalido = "El email no es válido.";
         public const string GeneroSinPeliculas = "Este género no cuenta con películas asignadas.";
         public const string PasswordMissmatch = "Las contraseñas no coinciden.";
+        public const string PeliculaSinSalas = "Esta película no cuenta con salas asignadas.";
         public const string Requerido = "El campo {0} es requerido.";
+        public const string SalaEnUso = "Esa sala está en uso en ese momento.";
         public const string StrSoloAlfab = "Para el campo {0} sólo pueden utilizarse caracteres alfabéticos.";
     }
 }

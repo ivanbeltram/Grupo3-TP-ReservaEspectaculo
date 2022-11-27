@@ -42,6 +42,16 @@
                                 }
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Salas" asp-action="Index">Salas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Reservas" asp-action="Index">Reservas</a>
+                        </li>
+                        @if (User.IsInRole(Configs.Empleado))
+                        {
+                            <a class="nav-link" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                        }
                         @if (signInManager.IsSignedIn(User))
                         {
                         <li class="nav-item">

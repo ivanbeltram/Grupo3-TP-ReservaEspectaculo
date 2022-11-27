@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Data;
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models;
+using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.ViewModels;
 
 namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
 {
@@ -51,8 +52,8 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // GET: Reservas/Create
         public IActionResult Create()
         {
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Apellido");
-            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "TipoSala");
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto");
+            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "NumeroDeSala");
             return View();
         }
 
@@ -61,17 +62,26 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SalaId,ClienteId,CantidadButacas,Activa,FechaAlta")] Reserva reserva)
+        public async Task<IActionResult> Create([Bind("SalaId,ClienteId,CantidadButacas")] NuevaReserva nuevaReserva)
         {
             if (ModelState.IsValid)
             {
-                _context.Reservas.Add(reserva);
+                Reserva r = new Reserva()
+                {
+                    SalaId = nuevaReserva.SalaId,
+                    ClienteId = nuevaReserva.ClienteId,
+                    CantidadButacas = nuevaReserva.CantidadButacas,
+                    Activa = true,
+                    FechaAlta = DateTime.Today
+                };
+
+                _context.Reservas.Add(r);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Apellido", reserva.ClienteId);
-            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "TipoSala", reserva.SalaId);
-            return View(reserva);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto", nuevaReserva.ClienteId);
+            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "NumeroDeSala", nuevaReserva.SalaId);
+            return View(nuevaReserva);
         }
 
         // GET: Reservas/Edit/5
@@ -87,8 +97,8 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Apellido", reserva.ClienteId);
-            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "TipoSala", reserva.SalaId);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto", reserva.ClienteId);
+            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "NumeroDeSala", reserva.SalaId);
             return View(reserva);
         }
 
@@ -124,8 +134,8 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Apellido", reserva.ClienteId);
-            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "TipoSala", reserva.SalaId);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto", reserva.ClienteId);
+            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "NumeroDeSala", reserva.SalaId);
             return View(reserva);
         }
 

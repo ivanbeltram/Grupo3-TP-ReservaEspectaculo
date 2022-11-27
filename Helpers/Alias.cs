@@ -2,16 +2,18 @@
 {
     public static class Alias
     {
-        public const string ClienteId = "Cliente";
+        public const string Cliente = "Cliente";
         public const string Descripcion = "Descripción";
         public const string Email = "Correo electrónico";
-        public const string GeneroId = "Género";
+        public const string FechaLanzamiento = "Fecha de lanzamiento";
+        public const string Genero = "Género";
         public const string Password = "Contraseña";
         public const string PasswordConfirm = "Confirmación de contraseña";
-        public const string PeliculaId = "Película";
-        public const string ReservaId = "Reserva";
+        public const string Pelicula = "Película";
+        public const string Reserva = "Reserva";
         public const string RoleName = "Rol";
         public const string SalaId = "Sala";
+        public const string Titulo = "Título";
         public const string Telefono = "Teléfono";
     }
 }

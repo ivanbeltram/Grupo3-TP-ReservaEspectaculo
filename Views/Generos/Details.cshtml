@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    List<Pelicula> listaDePeliculas = (List<Pelicula>)ViewBag.listaDePeliculas;
 }
 
 <h1>Details</h1>
@@ -16,6 +17,25 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Nombre)
         </dd>
+        @if (listaDePeliculas.Count != 0)
+        {
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Peliculas)
+            </dt>
+            <dd class = "col-sm-10"></dd>
+            @foreach (var pelicula in listaDePeliculas)
+            {
+                <dt class = "col-sm-2"></dt>
+                <dd class = "col-sm-10">
+                <h8>@Html.ActionLink(@pelicula.Titulo, "Details", "Peliculas", new { id = @pelicula.Id })</h8>
+                </dd>
+            }
+        } 
+        else
+        {
+            <dt class = "col-sm-2"></dt>
+            <dd class = "col-sm-10">@MensajesDeError.GeneroSinPeliculas</dd>
+        }
     </dl>
 </div>
 <div>

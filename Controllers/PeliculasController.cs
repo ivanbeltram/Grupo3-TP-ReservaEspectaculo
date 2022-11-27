@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Data;
+using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Helpers;
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models;
 
 namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
@@ -42,10 +44,13 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 return NotFound();
             }
 
+            ViewBag.Genero = _context.Generos.Where(g => g.Id == pelicula.GeneroId).ToList();
+
             return View(pelicula);
         }
 
         // GET: Peliculas/Create
+        [Authorize(Roles = Configs.Empleado)]
         public IActionResult Create()
         {
             ViewData["GeneroId"] = new SelectList(_context.Generos, "Id", "Nombre");
@@ -55,6 +60,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // POST: Peliculas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = Configs.Empleado)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Titulo,Descripcion,GeneroId,FechaLanzamiento")] Pelicula pelicula)
@@ -70,6 +76,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         }
 
         // GET: Peliculas/Edit/5
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Peliculas == null)
@@ -89,6 +96,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // POST: Peliculas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = Configs.Empleado)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Descripcion,GeneroId,FechaLanzamiento")] Pelicula pelicula)
@@ -123,6 +131,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         }
 
         // GET: Peliculas/Delete/5
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Peliculas == null)
@@ -142,6 +151,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         }
 
         // POST: Peliculas/Delete/5
+        [Authorize(Roles = Configs.Empleado)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

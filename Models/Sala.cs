@@ -17,7 +17,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
         public List<Reserva> Reservas { get; set; }
         public bool Confirmada { get; set; }
         [Required(ErrorMessage = MensajesDeError.Requerido)]
-        [Display(Name = Alias.PeliculaId)]
+        [Display(Name = Alias.Pelicula)]
         public int PeliculaID { get; set; }
         public Pelicula Pelicula { get; set; }
         [Required(ErrorMessage = MensajesDeError.Requerido)]

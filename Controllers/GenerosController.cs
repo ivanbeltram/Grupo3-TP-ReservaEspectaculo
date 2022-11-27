@@ -43,6 +43,8 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 return NotFound();
             }
 
+            ViewBag.listaDePeliculas = _context.Peliculas.Where(p => p.GeneroId == id ).ToList();
+
             return View(genero);
         }
 

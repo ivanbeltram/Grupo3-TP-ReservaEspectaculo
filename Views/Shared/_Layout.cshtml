@@ -1,6 +1,4 @@
 ﻿@{
-    ViewBag.Title = "Index";
-    ViewBag.Login = "Login";
     List<Genero> listaDeGeneros = _cineContext.Generos.ToList();
 }
 
@@ -36,10 +34,7 @@
                                 {
                                     <li>@Html.ActionLink(@genero.Nombre, "Details", "Generos", new { id = @genero.Id })</li>
                                 }
-                                @if (User.IsInRole(Configs.Empleado))
-                                {
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Generos" asp-action="Index">Editar géneros</a></li>
-                                }
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Generos" asp-action="Index">Todos los géneros</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -66,18 +61,9 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Account" asp-action="IniciarSesion">Iniciar sesión</a>
                         </li>
-
-
-
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">@ViewBag.Login - Ingresar/Registrarse</a>
-                        </li>
-
-
-
                         }
                         <li class="nav-item">
-                            <a class="nav-link">Sobre nosotres</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Institucional">Sobre nosotres</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">

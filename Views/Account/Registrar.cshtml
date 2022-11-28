@@ -2,6 +2,7 @@
 
 @{
 	ViewData["Title"] = "Registrar";
+    List<Rol> listaDeRoles = _cineContext.Roles.ToList();
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -36,8 +37,9 @@
 			<div class="form-group">
 				<label asp-for="Rol" class="control-label"></label>
 				<select asp-for="Rol" class="form-control">
-					<option value="Cliente">Cliente</option>
-					<option value="Empleado">Empleado</option>
+					@foreach(var rol in listaDeRoles){
+						<option value="@rol.Name">@rol.Name</option>
+					}
 				</select>
 				<span asp-validation-for="Rol" class="text-danger"></span>
 			</div>

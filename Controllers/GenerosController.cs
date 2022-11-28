@@ -12,7 +12,6 @@ using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models;
 
 namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
 {
-    [Authorize(Roles = Configs.Empleado)]
     public class GenerosController : Controller
     {
         private readonly CineContext _context;
@@ -49,6 +48,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         }
 
         // GET: Generos/Create
+        [Authorize(Roles = Configs.Empleado)]
         public IActionResult Create()
         {
             return View();
@@ -59,6 +59,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> Create([Bind("Id,Nombre")] Genero genero)
         {
             if (ModelState.IsValid)
@@ -71,6 +72,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         }
 
         // GET: Generos/Edit/5
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Generos == null)
@@ -91,6 +93,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre")] Genero genero)
         {
             if (id != genero.Id)
@@ -122,6 +125,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         }
 
         // GET: Generos/Delete/5
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Generos == null)
@@ -142,6 +146,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // POST: Generos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Generos == null)

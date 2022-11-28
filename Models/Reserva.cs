@@ -34,7 +34,14 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
         {
             get
             {
-                return $"{Alias.NumeroSala}: {Sala.NumeroDeSala} | {Alias.Cliente}: {Cliente.NombreCompleto} | {Alias.CantidadDeButacas}: {CantidadButacas}";
+                if (Cliente != null && Sala != null)
+                {
+                    return $"{Alias.NumeroSala}: {Sala.NumeroDeSala} | {Alias.Cliente}: {Cliente.Nombre} | {Alias.CantidadDeButacas}: {CantidadButacas}";
+                }
+                else
+                {
+                    return MensajesDeError.DetalleReserva;
+                }
             }
         }
     }

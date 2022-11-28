@@ -22,7 +22,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
         public bool Confirmada { get; set; }
         [Required(ErrorMessage = MensajesDeError.Requerido)]
         [Display(Name = Alias.Pelicula)]
-        public int PeliculaID { get; set; }
+        public int PeliculaId { get; set; }
         [Display(Name = Alias.Pelicula)]
         public Pelicula Pelicula { get; set; }
         [Required(ErrorMessage = MensajesDeError.Requerido)]
@@ -32,8 +32,35 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
         {
             get
             {
-                return $"{Alias.NumeroSala}: {NumeroDeSala} | {Alias.TipoSala}: {TipoSala} | {Alias.FechaSala}: {Fecha}";
+                return $"{Alias.NumeroSala}: {NumeroDeSala} | {Alias.TipoSala}: {TipoSala} | {Alias.FechaSala}: {Fecha} | {Alias.CantidadDeButacas} disponibles: {ButacasDisponibles}";
             }
+        }
+        public string DetalleSalaConPelicula
+        {
+            get
+            {
+                if (Pelicula != null)
+                {
+                    return $"{Alias.NumeroSala}: {NumeroDeSala} | {Alias.TipoSala}: {TipoSala} | {Alias.FechaSala}: {Fecha} | {Alias.Pelicula}: {Pelicula.Titulo}";
+                }
+                else
+                {
+                    return MensajesDeError.DetalleSala;
+                }
+            }
+        }
+        private bool ButacasSuficientes(int cantidadButacas)
+        {
+            return ButacasDisponibles >= cantidadButacas;
+        }
+        public bool OtorgarButacas(int cantidadButacas)
+        {
+            bool butacasSuficientes = ButacasSuficientes(cantidadButacas);
+            if (butacasSuficientes)
+            {
+                ButacasDisponibles -= cantidadButacas;
+            }
+            return butacasSuficientes;
         }
     }
 }

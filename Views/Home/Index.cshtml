@@ -10,7 +10,7 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div id="todas-las-peliculas">
-                    <div class="card" style="width: 60rem; height:10rem;">
+                    <div class="card" style="width: 80rem; height:10rem;">
                         <img src="" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">¡Este es tu cine!</h5>
@@ -25,20 +25,18 @@
             {
             <div class="carousel-item">
                 <div id=@pelicula.Titulo>
-                    <div class="card" style="width: 60rem; height:10rem;">
+                    <div class="card" style="width: 80rem; height:10rem;">
                         <img src="" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">@pelicula.Titulo</h5>
                             <p class="card-text">@pelicula.Descripcion</p>
-                            <a href="#" class="btn btn-primary">Ver salas disponibles</a>
+                            <a class="btn btn-primary">@Html.ActionLink("Ver salas disponibles", "Details", "Peliculas", new { id = @pelicula.Id })</a>
+@*                          <a class="btn btn-primary" asp-controller="Peliculas" asp-action="Details" asp-fragment="@pelicula.Id">Ver salas disponibles</a>*@
                         </div>
                     </div>
                 </div>
             </div>
             }
-
-
-
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -48,12 +46,4 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-    </div>
-
-
-
-    <div class="row">
-        <div class="col-md-12">
-            @Html.DropDownList("datos",listaDeGeneros,"Ver películas por género",new {@class="form-control"})
-        </div>
     </div>

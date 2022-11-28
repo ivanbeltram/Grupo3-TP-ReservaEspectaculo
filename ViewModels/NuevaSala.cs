@@ -17,7 +17,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.ViewModels
         public int CapacidadButacas { get; set; }
         [Required(ErrorMessage = MensajesDeError.Requerido)]
         [Display(Name = Alias.Pelicula)]
-        public int PeliculaID { get; set; }
+        public int PeliculaId { get; set; }
         [Display(Name = Alias.Pelicula)]
         public Pelicula Pelicula { get; set; }
         [Required(ErrorMessage = MensajesDeError.Requerido)]

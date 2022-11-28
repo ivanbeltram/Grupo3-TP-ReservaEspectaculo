@@ -16,6 +16,15 @@
                 @Html.DisplayNameFor(model => model.Sala)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Sala.TipoSala)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sala.Pelicula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sala.Fecha)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Cliente)
             </th>
             <th>
@@ -37,6 +46,15 @@
                 @Html.DisplayFor(modelItem => item.Sala.NumeroDeSala)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Sala.TipoSala)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sala.Pelicula.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sala.Fecha)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Cliente.NombreCompleto)
             </td>
             <td>
@@ -49,9 +67,11 @@
                 @Html.DisplayFor(modelItem => item.FechaAlta)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    @if (User.IsInRole(Configs.Empleado))
+                    {
+                         <a> | </a><a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
             </td>
         </tr>
 }

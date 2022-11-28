@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -44,15 +45,16 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 return NotFound();
             }
 
-            ViewBag.Pelicula = _context.Peliculas.Where(p => p.Id == sala.PeliculaID).ToList();
+            ViewBag.Pelicula = _context.Peliculas.Where(p => p.Id == sala.PeliculaId).ToList();
 
             return View(sala);
         }
 
         // GET: Salas/Create
+        [Authorize(Roles = Configs.Empleado)]
         public IActionResult Create()
         {
-            ViewData["PeliculaID"] = new SelectList(_context.Peliculas, "Id", "Titulo");
+            ViewData["PeliculaId"] = new SelectList(_context.Peliculas, "Id", "Titulo");
             return View();
         }
 
@@ -61,7 +63,8 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NumeroDeSala,TipoSala,CapacidadButacas,PeliculaID,Fecha")] NuevaSala nuevaSala)
+        [Authorize(Roles = Configs.Empleado)]
+        public async Task<IActionResult> Create([Bind("NumeroDeSala,TipoSala,CapacidadButacas,PeliculaId,Fecha")] NuevaSala nuevaSala)
         {
 
             if (ModelState.IsValid)
@@ -75,7 +78,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                         CapacidadButacas = nuevaSala.CapacidadButacas,
                         ButacasDisponibles = nuevaSala.CapacidadButacas,
                         Confirmada = true,
-                        PeliculaID = nuevaSala.PeliculaID,
+                        PeliculaId = nuevaSala.PeliculaId,
                         Fecha = nuevaSala.Fecha
                     };
 
@@ -89,11 +92,12 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                     return View();
                 }
             }
-            ViewData["PeliculaID"] = new SelectList(_context.Peliculas, "Id", "Titulo", nuevaSala.PeliculaID);
+            ViewData["PeliculaId"] = new SelectList(_context.Peliculas, "Id", "Titulo", nuevaSala.PeliculaId);
             return View(nuevaSala);
         }
 
         // GET: Salas/Edit/5
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Salas == null)
@@ -106,7 +110,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             {
                 return NotFound();
             }
-            ViewData["PeliculaID"] = new SelectList(_context.Peliculas, "Id", "Titulo", sala.PeliculaID);
+            ViewData["PeliculaId"] = new SelectList(_context.Peliculas, "Id", "Titulo", sala.PeliculaId);
             return View(sala);
         }
 
@@ -115,7 +119,8 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NumeroDeSala,TipoSala,CapacidadButacas,ButacasDisponibles,Confirmada,PeliculaID,Fecha")] Sala sala)
+        [Authorize(Roles = Configs.Empleado)]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NumeroDeSala,TipoSala,CapacidadButacas,ButacasDisponibles,Confirmada,PeliculaId,Fecha")] Sala sala)
         {
             if (id != sala.Id)
             {
@@ -142,11 +147,12 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PeliculaID"] = new SelectList(_context.Peliculas, "Id", "Titulo", sala.PeliculaID);
+            ViewData["PeliculaId"] = new SelectList(_context.Peliculas, "Id", "Titulo", sala.PeliculaId);
             return View(sala);
         }
 
         // GET: Salas/Delete/5
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Salas == null)
@@ -168,6 +174,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // POST: Salas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Salas == null)
@@ -194,7 +201,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             bool salaEnUso = false;
             List<Sala> listaDeSalas = _context.Salas.ToList();
             int i = 0;
-            while (i < listaDeSalas.Count && listaDeSalas.ElementAt(i).Id != numeroDeSala && listaDeSalas.ElementAt(i).Fecha.ToString().Equals(fecha.ToString()))
+            while (i < listaDeSalas.Count && !(listaDeSalas.ElementAt(i).NumeroDeSala == numeroDeSala && listaDeSalas.ElementAt(i).Fecha.ToString().Equals(fecha.ToString())))
             {
                 i++;
             }

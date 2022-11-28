@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Data;
+using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Helpers;
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models;
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.ViewModels;
 
@@ -53,7 +54,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         public IActionResult Create()
         {
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto");
-            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "NumeroDeSala");
+            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "DetalleSala");
             return View();
         }
 
@@ -66,21 +67,36 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         {
             if (ModelState.IsValid)
             {
-                Reserva r = new Reserva()
+                if (!ClienteConReservaActiva(nuevaReserva.ClienteId))
                 {
-                    SalaId = nuevaReserva.SalaId,
-                    ClienteId = nuevaReserva.ClienteId,
-                    CantidadButacas = nuevaReserva.CantidadButacas,
-                    Activa = true,
-                    FechaAlta = DateTime.Today
-                };
-
-                _context.Reservas.Add(r);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    Sala SalaSeleccionada = _context.Salas.Find(nuevaReserva.SalaId);
+                    if (SalaSeleccionada.OtorgarButacas(nuevaReserva.CantidadButacas))
+                    {
+                        Reserva r = new Reserva()
+                        {
+                            SalaId = nuevaReserva.SalaId,
+                            ClienteId = nuevaReserva.ClienteId,
+                            CantidadButacas = nuevaReserva.CantidadButacas,
+                            Activa = true,
+                            FechaAlta = DateTime.Today
+                        };
+                        _context.Reservas.Add(r);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, MensajesDeError.ButacasInsuficientes);
+                        return View();
+                    }
+                } else
+                {
+                    ModelState.AddModelError(string.Empty, MensajesDeError.ClienteConReserva);
+                    return View();
+                }
             }
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto", nuevaReserva.ClienteId);
-            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "NumeroDeSala", nuevaReserva.SalaId);
+            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "DetalleSala", nuevaReserva.SalaId);
             return View(nuevaReserva);
         }
 
@@ -181,6 +197,22 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         private bool ReservaExists(int id)
         {
           return _context.Reservas.Any(e => e.Id == id);
+        }
+
+        private bool ClienteConReservaActiva(int idCliente)
+        {
+            bool tieneReserva = false;
+            List<Reserva> listaDeReservas = _context.Reservas.Where(r => r.Activa == true).ToList();
+            int i = 0;
+            while (i < listaDeReservas.Count && listaDeReservas.ElementAt(i).ClienteId != idCliente)
+            {
+                i++;
+            }
+            if (i < listaDeReservas.Count)
+            {
+                tieneReserva = true;
+            }
+            return tieneReserva;
         }
     }
 }

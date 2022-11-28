@@ -11,10 +11,34 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sala)
+            @Html.DisplayNameFor(model => model.Sala.NumeroDeSala)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Sala.NumeroDeSala)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sala.TipoSala)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sala.TipoSala)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sala.Pelicula)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sala.Pelicula.Titulo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sala.Pelicula.Descripcion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sala.Pelicula.Descripcion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sala.Fecha)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sala.Fecha)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Cliente)
@@ -43,6 +67,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    @if (User.IsInRole(Configs.Empleado))
+    {
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a><a> | </a>
+    }
     <a asp-action="Index">Back to List</a>
 </div>

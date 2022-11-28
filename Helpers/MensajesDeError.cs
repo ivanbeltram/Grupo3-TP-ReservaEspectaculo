@@ -2,6 +2,10 @@
 {
     public static class MensajesDeError
     {
+        public const string ButacasInsuficientes = "La sala no cuenta con butacas suficientes.";
+        public const string ClienteConReserva = "No es posible generar la nueva reserva debido a que el cliente ya cuenta con una reserva activa.";
+        public const string DetalleReserva = "No es posible obtener el detalle de la reserva.";
+        public const string DetalleSala = "No es posible obtener el detalle de la sala.";
         public const string DniInvalido = "El DNI debe estar comprendido entre {1} y {2}.";
         public const string EmailInvalido = "El email no es válido.";
         public const string GeneroSinPeliculas = "Este género no cuenta con películas asignadas.";

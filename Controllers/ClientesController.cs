@@ -12,6 +12,7 @@ using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models;
 
 namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
 {
+    [Authorize]
     public class ClientesController : Controller
     {
         private readonly CineContext _context;
@@ -128,6 +129,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         }
 
         // GET: Clientes/Delete/5
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Clientes == null)
@@ -148,6 +150,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // POST: Clientes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Clientes == null)

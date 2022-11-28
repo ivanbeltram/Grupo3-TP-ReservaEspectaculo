@@ -13,31 +13,15 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="SalaId" class="control-label"></label>
-                <select asp-for="SalaId" class="form-control" asp-items="ViewBag.SalaId"></select>
-                <span asp-validation-for="SalaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClienteId" class="control-label"></label>
-                <select asp-for="ClienteId" class="form-control" asp-items="ViewBag.ClienteId"></select>
-                <span asp-validation-for="ClienteId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CantidadButacas" class="control-label"></label>
-                <input asp-for="CantidadButacas" class="form-control" />
-                <span asp-validation-for="CantidadButacas" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="SalaId" />
+            <input type="hidden" asp-for="ClienteId" />
+            <input type="hidden" asp-for="CantidadButacas" />
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Activa" /> @Html.DisplayNameFor(model => model.Activa)
                 </label>
             </div>
-            <div class="form-group">
-                <label asp-for="FechaAlta" class="control-label"></label>
-                <input asp-for="FechaAlta" class="form-control" />
-                <span asp-validation-for="FechaAlta" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="FechaAlta" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

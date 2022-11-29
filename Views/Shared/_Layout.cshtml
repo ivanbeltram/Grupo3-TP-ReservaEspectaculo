@@ -89,7 +89,7 @@
                         @if (signInManager.IsSignedIn(User))
                         {
                         <li class="nav-item">
-                            <a class="nav-link">Cuenta: @User.Identity.Name.ToString()</a>
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="MiCuenta">Cuenta: @User.Identity.Name.ToString()</a>
                         </li>
                         }
                     </ul>

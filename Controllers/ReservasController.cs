@@ -113,6 +113,10 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                         Reserva reservaAgregada = _context.Reservas.ToList().ElementAt(_context.Reservas.ToList().Count() - 1);
                         SalaSeleccionada.AgregarReserva(reservaAgregada);
                         await _context.SaveChangesAsync();
+                        if (User.IsInRole(Configs.Cliente))
+                        {
+                            return RedirectToAction(nameof(MisReservas));
+                        }
                         return RedirectToAction(nameof(Index));
                     }
                     else
@@ -209,6 +213,10 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                     {
                         throw;
                     }
+                }
+                if (User.IsInRole(Configs.Cliente))
+                {
+                    return RedirectToAction(nameof(MisReservas));
                 }
                 return RedirectToAction(nameof(Index));
             }

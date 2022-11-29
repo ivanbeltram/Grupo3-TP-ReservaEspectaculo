@@ -23,6 +23,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         }
 
         // GET: Clientes
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> Index()
         {
               return View(await _context.Clientes.ToListAsync());
@@ -43,12 +44,21 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 return NotFound();
             }
 
+            if (!User.IsInRole(Configs.Empleado))
+            {
+                if (User.Identity.Name.ToString() != cliente.Email)
+                {
+                    return NotFound();
+                }
+            }
+
             ViewBag.reservasDelCliente = _context.Reservas.Include(r => r.Cliente).Include(r => r.Sala).Include(r => r.Sala.Pelicula).Where(r => r.ClienteId == id).ToList();
 
             return View(cliente);
         }
 
         // GET: Clientes/Create
+        [Authorize(Roles = Configs.Empleado)]
         public IActionResult Create()
         {
             return View();
@@ -59,6 +69,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Email,Dni,PhoneNumber,Direccion,FechaAlta")] Cliente cliente)
         {
             if (ModelState.IsValid)
@@ -83,6 +94,15 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             {
                 return NotFound();
             }
+
+            if (!User.IsInRole(Configs.Empleado))
+            {
+                if (User.Identity.Name.ToString() != cliente.Email)
+                {
+                    return NotFound();
+                }
+            }
+
             return View(cliente);
         }
 
@@ -96,6 +116,14 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             if (id != cliente.Id)
             {
                 return NotFound();
+            }
+
+            if (!User.IsInRole(Configs.Empleado))
+            {
+                if (User.Identity.Name.ToString() != cliente.Email)
+                {
+                    return NotFound();
+                }
             }
 
             if (ModelState.IsValid)
@@ -113,6 +141,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
 
                     _context.Clientes.Update(clienteEnDb);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Details", "Clientes", new { id = cliente.Id });
                 }
                 catch (DbUpdateConcurrencyException)
                 {

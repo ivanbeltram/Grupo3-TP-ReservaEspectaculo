@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Data;
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Helpers;
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models;
 using ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.ViewModels;
@@ -12,11 +13,13 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
     {
         private readonly UserManager<Usuario> _userManager;
         private readonly SignInManager<Usuario> _signInManager;
+        private readonly CineContext _context;
 
-        public AccountController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager)
+        public AccountController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager, CineContext context)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
+            this._context = context;
         }
 
         [AllowAnonymous]
@@ -139,6 +142,28 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         public IActionResult AccesoDenegado()
         {
             return View();
+        }
+
+        // GET: Clientes
+        public async Task<IActionResult> MiCuenta()
+        {
+            if (!_signInManager.IsSignedIn(User))
+            {
+                return NotFound();
+            }
+
+            Usuario usuario = _context.Usuarios.Where(u => u.Email == User.Identity.Name.ToString()).ToList().ElementAt(0);
+            int idUsuario = usuario.Id;
+
+            if (User.IsInRole(Configs.Cliente))
+            {
+                return RedirectToAction("Details", "Clientes", new {id = idUsuario});
+            }
+            if (User.IsInRole(Configs.Empleado))
+            {
+                return RedirectToAction("Details", "Empleados", new { id = idUsuario });
+            }
+            return NotFound();
         }
     }
 }

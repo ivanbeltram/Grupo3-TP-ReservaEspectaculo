@@ -76,5 +76,12 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Modificar datos de contacto</a> |
-    <a asp-action="Index">Volver al listado</a>
+    @if (User.IsInRole(Configs.Empleado))
+    {
+        <a asp-action="Index">Volver al listado</a>
+    }
+    else
+    {
+        <a asp-controller="Home" asp-action="Index">Ir a la página principal</a>
+    }
 </div>

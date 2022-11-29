@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models.Reserva>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Sala)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sala.TipoSala)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sala.Pelicula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sala.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadButacas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaAlta)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sala.NumeroDeSala)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sala.TipoSala)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sala.Pelicula.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sala.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadButacas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Activa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaAlta)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    @if (User.IsInRole(Configs.Empleado))
+                    {
+                         <a> | </a><a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

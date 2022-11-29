@@ -124,6 +124,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 } else
                 {
                     ModelState.AddModelError(String.Empty, "Inicio de sesión inválido.");
+                    return View();
                 }
             }
             return null;

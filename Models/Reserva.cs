@@ -30,13 +30,31 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
         [Display(Name = Alias.FechaAltaReserva)]
         public DateTime FechaAlta { get; set; }
 
-        public string DetalleReserva
+        private string getEstadoToString()
+        {
+            return Activa ? "Activa" : "Inactiva";
+        }
+        public string DetalleClienteConCantidadDeButacasActivas
+        {
+            get
+            {
+                if (Cliente != null)
+                {
+                    return $"{Alias.CantidadDeButacas}: {CantidadButacas} | {Alias.Cliente}: {Cliente.NombreCompleto}";
+                }
+                else
+                {
+                    return MensajesDeError.DetalleReserva;
+                }
+            }
+        }
+        public string DetalleReservaConPeliculas
         {
             get
             {
                 if (Cliente != null && Sala != null)
                 {
-                    return $"{Alias.NumeroSala}: {Sala.NumeroDeSala} | {Alias.Cliente}: {Cliente.Nombre} | {Alias.CantidadDeButacas}: {CantidadButacas}";
+                    return $"{Alias.NumeroSala}: {Sala.NumeroDeSala} | {Alias.TipoSala}: {Sala.TipoSala} | {Alias.FechaSala}: {Sala.Fecha} | {Alias.Pelicula}: {Sala.Pelicula.Titulo} | {Alias.CantidadDeButacas}: {CantidadButacas} | {Alias.EstadoReserva}: {getEstadoToString()}";
                 }
                 else
                 {

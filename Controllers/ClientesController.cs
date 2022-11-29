@@ -37,11 +37,13 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             }
 
             var cliente = await _context.Clientes
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(c => c.Reservas).FirstOrDefaultAsync(m => m.Id == id);
             if (cliente == null)
             {
                 return NotFound();
             }
+
+            ViewBag.reservasDelCliente = _context.Reservas.Include(r => r.Cliente).Include(r => r.Sala).Include(r => r.Sala.Pelicula).Where(r => r.ClienteId == id).ToList();
 
             return View(cliente);
         }

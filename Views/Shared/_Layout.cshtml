@@ -32,7 +32,8 @@
                             <ul class="dropdown-menu">
                                 @foreach (var genero in listaDeGeneros)
                                 {
-                                    <li>@Html.ActionLink(@genero.Nombre, "Details", "Generos", new { id = @genero.Id })</li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Generos" asp-action="Details" asp-route-id=@genero.Id>@genero.Nombre</a></li>
+@*                              <li>@Html.ActionLink(@genero.Nombre, "Details", "Generos", new { id = @genero.Id })</li>*@
                                 }
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Generos" asp-action="Index">Todos los géneros</a></li>
                             </ul>
@@ -40,12 +41,32 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Salas" asp-action="Index">Salas</a>
                         </li>
+                        @if (User.IsInRole(Configs.Empleado))
+                        {
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Reservas" asp-action="Index">Reservas</a>
                         </li>
+                        }
+                        else
+                        {
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Reservas" asp-action="MisReservas">Mis reservas</a>
+                        </li>
+                        }
+                        }
                         @if (User.IsInRole(Configs.Empleado))
                         {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                        </li>
                         }
                         @if (signInManager.IsSignedIn(User))
                         {
@@ -65,6 +86,12 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Institucional">Sobre nosotres</a>
                         </li>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link">Cuenta: @User.Identity.Name.ToString()</a>
+                        </li>
+                        }
                     </ul>
                     <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -80,11 +107,6 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>  <a asp-action="Seed" asp-controller="PreCarga" class="btn btn-sm btn-info">Pre Carga Db</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -105,4 +127,10 @@
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2022 - ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>  <a asp-action="Seed" asp-controller="PreCarga" class="btn btn-sm btn-info">Pre Carga Db</a>
+    </div>
+</footer>
+
 </html>

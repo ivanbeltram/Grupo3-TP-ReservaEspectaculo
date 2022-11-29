@@ -23,11 +23,7 @@
                 <input asp-for="Descripcion" class="form-control" />
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="GeneroId" class="control-label"></label>
-                <select asp-for="GeneroId" class="form-control" asp-items="ViewBag.GeneroId"></select>
-                <span asp-validation-for="GeneroId" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="GeneroId" />
             <div class="form-group">
                 <label asp-for="FechaLanzamiento" class="control-label"></label>
                 <input asp-for="FechaLanzamiento" class="form-control" />

@@ -12,6 +12,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         private readonly RoleManager<Rol> _roleManager;
         private readonly CineContext _context;
         private List<string> roles = new List<string>() { Configs.Cliente, Configs.Empleado};
+//      private List<string> generos = new List<string>() { "Acción", "Animación", "Aventura", "Ciencia ficción", "Suspenso", "Comedia", "Documental", "Drama", "Romance", "Terror" };
 
         public PreCarga(UserManager<Usuario> userManager, RoleManager<Rol> roleManager, CineContext context)
         {
@@ -23,6 +24,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         public IActionResult Seed()
         {
             CrearRoles().Wait();
+//          CrearGeneros();
             return RedirectToAction("Index", "Home");
         }
 
@@ -36,5 +38,32 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 }
             }
         }
+
+//      private void CrearGeneros()
+//      {
+//          foreach (var generoName in generos)
+//          {
+//              if (!ExisteGenero(generoName))
+//              {
+//                  _context.Generos.Add(new Genero(generoName));
+//              }
+//          }
+//      }
+
+//      private bool ExisteGenero(string generoName)
+//      {
+//          bool existeGenero = false;
+//          List<Genero> GenerosExistentes = _context.Generos.ToList();
+//          int i = 0;
+//          while (i < GenerosExistentes.Count && GenerosExistentes.ElementAt(i).Nombre != generoName)
+//          {
+//              i++;
+//          }
+//          if (i < GenerosExistentes.Count)
+//          {
+//              existeGenero = true;
+//          }
+//          return existeGenero;
+//      }
     }
 }

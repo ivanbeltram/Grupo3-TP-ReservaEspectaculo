@@ -46,6 +46,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             }
 
             ViewBag.Pelicula = _context.Peliculas.Where(p => p.Id == sala.PeliculaId).ToList();
+            ViewBag.reservasDeLaSala = _context.Reservas.Include(r => r.Cliente).Include(r => r.Sala).Include(r => r.Sala.Pelicula).Where(r => r.SalaId == id).ToList();
 
             return View(sala);
         }
@@ -81,6 +82,8 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                         PeliculaId = nuevaSala.PeliculaId,
                         Fecha = nuevaSala.Fecha
                     };
+                    Pelicula p = _context.Peliculas.Find(nuevaSala.PeliculaId);
+                    p.AgregarSala(s);
 
                     _context.Salas.Add(s);
                     await _context.SaveChangesAsync();
@@ -184,6 +187,8 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             var sala = await _context.Salas.FindAsync(id);
             if (sala != null)
             {
+                Pelicula p = _context.Peliculas.Find(sala.PeliculaId);
+                p.EliminarSala(sala);
                 _context.Salas.Remove(sala);
             }
 

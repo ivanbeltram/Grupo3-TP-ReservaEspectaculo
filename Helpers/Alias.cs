@@ -7,7 +7,10 @@
         public const string CapacidadDeButacas = "Capacidad de butacas";
         public const string Cliente = "Cliente";
         public const string Descripcion = "Descripción";
+        public const string Direccion = "Dirección";
         public const string Email = "Correo electrónico";
+        public const string EstadoReserva = "Estado de la reserva";
+        public const string FechaAltaCliente = "Fecha de alta";
         public const string FechaAltaReserva = "Fecha de creación de la reseva";
         public const string FechaLanzamiento = "Fecha de lanzamiento";
         public const string FechaSala = "Día y hora de la función";

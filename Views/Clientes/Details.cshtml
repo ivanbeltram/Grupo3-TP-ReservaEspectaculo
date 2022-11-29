@@ -2,12 +2,13 @@
 
 @{
     ViewData["Title"] = "Details";
+    List<Reserva> reservasDelCliente = (List<Reserva>)ViewBag.reservasDelCliente;
 }
 
-<h1>Details</h1>
+<p></p>
 
 <div>
-    <h4>Cliente</h4>
+    <h4>Detalles del cliente @Model.NombreCompleto</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -52,9 +53,28 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FechaAlta)
         </dd>
+        @if (reservasDelCliente.Count != 0)
+        {
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Reservas)
+            </dt>
+            <dd class = "col-sm-10"></dd>
+            @foreach (var reserva in reservasDelCliente)
+            {
+                <dt class = "col-sm-2"></dt>
+                <dd class = "col-sm-10">
+                <h8>@Html.ActionLink(@reserva.DetalleReservaConPeliculas.ToString(), "Details", "Reservas", new { id = @reserva.Id })</h8>
+                </dd>
+            }
+        } 
+        else
+        {
+            <dt class = "col-sm-2"></dt>
+            <dd class = "col-sm-10">@MensajesDeError.ClienteSinReservas</dd>
+        }
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Modificar datos de contacto</a> |
+    <a asp-action="Index">Volver al listado</a>
 </div>

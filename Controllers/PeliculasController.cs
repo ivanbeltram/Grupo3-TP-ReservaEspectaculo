@@ -68,6 +68,9 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         {
             if (ModelState.IsValid)
             {
+                Genero g = _context.Generos.Find(pelicula.GeneroId);
+                g.AgregarPelicula(pelicula);
+
                 _context.Peliculas.Add(pelicula);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -164,6 +167,8 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             var pelicula = await _context.Peliculas.FindAsync(id);
             if (pelicula != null)
             {
+                Genero g = _context.Generos.Find(pelicula.GeneroId);
+                g.EliminarPelicula(pelicula);
                 _context.Peliculas.Remove(pelicula);
             }
             

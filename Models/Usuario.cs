@@ -43,8 +43,10 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
 			set { base.PhoneNumber = value; }
 		}
 
+		[Display(Name = Alias.Direccion)]
 		public string Direccion { get; set; }
 
+		[Display(Name = Alias.FechaAltaCliente)]
 		[DataType(DataType.DateTime)]
 		public DateTime FechaAlta { get; set; }
 

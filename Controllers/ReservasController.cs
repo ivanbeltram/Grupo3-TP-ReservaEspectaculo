@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,16 +18,30 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
     public class ReservasController : Controller
     {
         private readonly CineContext _context;
+        private readonly SignInManager<Usuario> _signInManager;
 
-        public ReservasController(CineContext context)
+        public ReservasController(CineContext context, SignInManager<Usuario> signInManager)
         {
             _context = context;
+            _signInManager = signInManager;
         }
 
         // GET: Reservas
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> Index()
         {
-            var cineContext = _context.Reservas.Include(r => r.Cliente).Include(r => r.Sala);
+            var cineContext = _context.Reservas.Include(r => r.Cliente).Include(r => r.Sala).Include(r => r.Sala.Pelicula);
+            return View(await cineContext.ToListAsync());
+        }
+
+        // GET: Reservas
+        public async Task<IActionResult> MisReservas()
+        {
+            if (!_signInManager.IsSignedIn(User) || _context.Reservas == null)
+            {
+                return NotFound();
+            }
+            var cineContext = _context.Reservas.Include(r => r.Cliente).Include(r => r.Sala).Include(r => r.Sala.Pelicula).Where(r => r.Cliente.Email == User.Identity.Name.ToString());
             return View(await cineContext.ToListAsync());
         }
 
@@ -41,10 +56,20 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             var reserva = await _context.Reservas
                 .Include(r => r.Cliente)
                 .Include(r => r.Sala)
+                .Include(r => r.Sala.Pelicula)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (reserva == null)
             {
                 return NotFound();
+            }
+
+            if (!User.IsInRole(Configs.Empleado))
+            {
+                if (User.Identity.Name.ToString() != reserva.Cliente.Email)
+                {
+                    return NotFound();
+                }
             }
 
             return View(reserva);
@@ -54,7 +79,8 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         public IActionResult Create()
         {
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto");
-            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "DetalleSala");
+            ViewData["ClienteIdCreate"] = new SelectList(_context.Clientes.Where(c => c.Email.ToString().Equals(User.Identity.Name.ToString())), "Id", "NombreCompleto");
+            ViewData["SalaId"] = new SelectList(_context.Salas.Include(s => s.Pelicula), "Id", "DetalleSalaConPelicula");
             return View();
         }
 
@@ -80,6 +106,9 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                             Activa = true,
                             FechaAlta = DateTime.Today
                         };
+                        SalaSeleccionada.AgregarReserva(r);
+                        Cliente c = _context.Clientes.Find(nuevaReserva.ClienteId);
+                        c.Reservar(r);
                         _context.Reservas.Add(r);
                         await _context.SaveChangesAsync();
                         return RedirectToAction(nameof(Index));
@@ -95,8 +124,9 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                     return View();
                 }
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto", nuevaReserva.ClienteId);
-            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "DetalleSala", nuevaReserva.SalaId);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto");
+            ViewData["ClienteIdCreate"] = new SelectList(_context.Clientes.Where(c => c.Email.ToString().Equals(User.Identity.Name.ToString())), "Id", "NombreCompleto");
+            ViewData["SalaId"] = new SelectList(_context.Salas.Include(s => s.Pelicula), "Id", "DetalleSala", nuevaReserva.SalaId);
             return View(nuevaReserva);
         }
 
@@ -114,7 +144,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 return NotFound();
             }
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto", reserva.ClienteId);
-            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "NumeroDeSala", reserva.SalaId);
+            ViewData["SalaId"] = new SelectList(_context.Salas.Include(s => s.Pelicula), "Id", "NumeroDeSala", reserva.SalaId);
             return View(reserva);
         }
 
@@ -134,8 +164,21 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             {
                 try
                 {
-                    _context.Reservas.Update(reserva);
-                    await _context.SaveChangesAsync();
+                    if (reserva.Activa)
+                    {
+                        Sala s = _context.Salas.Find(reserva.SalaId);
+                        if (s.EliminarReserva(reserva.ClienteId))
+                          {
+                            reserva.Activa = !reserva.Activa;
+                            _context.Reservas.Update(reserva);
+                            await _context.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(string.Empty, MensajesDeError.ReservaYaCancelada);
+                            return View();
+                        }
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -151,11 +194,12 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto", reserva.ClienteId);
-            ViewData["SalaId"] = new SelectList(_context.Salas, "Id", "NumeroDeSala", reserva.SalaId);
+            ViewData["SalaId"] = new SelectList(_context.Salas.Include(s => s.Pelicula), "Id", "NumeroDeSala", reserva.SalaId);
             return View(reserva);
         }
 
         // GET: Reservas/Delete/5
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Reservas == null)
@@ -166,6 +210,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             var reserva = await _context.Reservas
                 .Include(r => r.Cliente)
                 .Include(r => r.Sala)
+                .Include(r => r.Sala.Pelicula)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (reserva == null)
             {
@@ -178,6 +223,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // POST: Reservas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Configs.Empleado)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Reservas == null)
@@ -187,6 +233,10 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             var reserva = await _context.Reservas.FindAsync(id);
             if (reserva != null)
             {
+                Sala s = _context.Salas.Find(reserva.SalaId);
+                s.EliminarReserva(reserva.ClienteId);
+                Cliente c = _context.Clientes.Find(reserva.ClienteId);
+                c.EliminarReserva(reserva);
                 _context.Reservas.Remove(reserva);
             }
             

@@ -3,5 +3,17 @@
     public class Cliente : Usuario
     {
         public List<Reserva> Reservas { get; set; }
+        public Cliente()
+        {
+            this.Reservas = new List<Reserva>();
+        }
+        public void Reservar(Reserva reserva)
+        {
+            Reservas.Add(reserva);
+        }
+        public bool EliminarReserva(Reserva reserva)
+        {
+            return Reservas.Remove(reserva);
+        }
     }
 }

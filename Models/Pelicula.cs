@@ -22,5 +22,17 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
         [Display(Name = Alias.FechaLanzamiento)]
         public DateTime FechaLanzamiento { get; set; }
         public List<Sala> Salas { get; set; }
+        public Pelicula()
+        {
+            Salas = new List<Sala>();
+        }
+        public void AgregarSala(Sala sala)
+        {
+            Salas.Add(sala);
+        }
+        public bool EliminarSala(Sala sala)
+        {
+            return Salas.Remove(sala);
+        }
     }
 }

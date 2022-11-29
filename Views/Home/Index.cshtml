@@ -5,7 +5,7 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Bienvenide</h1>
+    <h1 class="display-4">Bienvenides a CinemaORT</h1>
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -30,8 +30,8 @@
                         <div class="card-body">
                             <h5 class="card-title">@pelicula.Titulo</h5>
                             <p class="card-text">@pelicula.Descripcion</p>
-                            <a class="btn btn-primary">@Html.ActionLink("Ver salas disponibles", "Details", "Peliculas", new { id = @pelicula.Id })</a>
-@*                          <a class="btn btn-primary" asp-controller="Peliculas" asp-action="Details" asp-fragment="@pelicula.Id">Ver salas disponibles</a>*@
+                            <a class="btn btn-primary" asp-controller="Peliculas" asp-action="Details" asp-route-id="@pelicula.Id">Ver salas disponibles</a>
+@*                          <a class="btn btn-primary">@Html.ActionLink("Ver salas disponibles", "Details", "Peliculas", new { id = @pelicula.Id })</a>*@
                         </div>
                     </div>
                 </div>

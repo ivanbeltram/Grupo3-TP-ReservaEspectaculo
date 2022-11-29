@@ -28,7 +28,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
         [Required(ErrorMessage = MensajesDeError.Requerido)]
         [Display(Name = Alias.FechaSala)]
         public DateTime Fecha { get; set; }
-        public string DetalleSala
+        public string DetalleSoloSala
         {
             get
             {
@@ -49,6 +49,10 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
                 }
             }
         }
+        public Sala()
+        {
+            Reservas = new List<Reserva>();
+        }
         private bool ButacasSuficientes(int cantidadButacas)
         {
             return ButacasDisponibles >= cantidadButacas;
@@ -61,6 +65,46 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
                 ButacasDisponibles -= cantidadButacas;
             }
             return butacasSuficientes;
+        }
+        public bool RecuperoDeButacasPorCancelacionDeReserva(int cantidadButacas)
+        {
+            bool recuperoDeButacas = false;
+            if (ButacasDisponibles + cantidadButacas <= CapacidadButacas)
+            {
+                ButacasDisponibles += cantidadButacas;
+                recuperoDeButacas = true;
+            }
+            return recuperoDeButacas;
+        }
+        public void AgregarReserva(Reserva reserva)
+        {
+            Reservas.Add(reserva);
+        }
+        public bool EliminarReserva(int clienteId)
+        {
+            bool eliminarReserva = false;
+            Reserva reservaPorEliminar = BuscarReserva(clienteId);
+            if (reservaPorEliminar != null)
+            {
+                RecuperoDeButacasPorCancelacionDeReserva(reservaPorEliminar.CantidadButacas);
+                Reservas.Remove(reservaPorEliminar);
+                eliminarReserva = true;
+            }
+            return eliminarReserva;
+        }
+        private Reserva BuscarReserva(int clienteId)
+        {
+            Reserva ReservaEncontrada = null;
+            int i = 0;
+            while (i < Reservas.Count && Reservas.ElementAt(i).ClienteId != clienteId)
+            {
+                i++;
+            }
+            if (i < Reservas.Count)
+            {
+                ReservaEncontrada = Reservas.ElementAt(i);
+            }
+            return ReservaEncontrada;
         }
     }
 }

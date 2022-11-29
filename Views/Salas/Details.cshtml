@@ -7,10 +7,10 @@
     List<Reserva> reservasInactivasDeLaSala = (List<Reserva>)ViewBag.reservasInactivasDeLaSala;
 }
 
-<h1>Details</h1>
+<p></p>
 
 <div>
-    <h4>Sala</h4>
+    <h4>Detalles de la sala</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -96,7 +96,7 @@
 <div>
     @if (User.IsInRole(Configs.Empleado))
     {
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a><a> | </a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Modificar sala</a><a> | </a>
     }
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver al listado</a>
 </div>

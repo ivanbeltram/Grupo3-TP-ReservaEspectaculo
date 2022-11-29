@@ -4,9 +4,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<p></p>
 
-<h4>Cliente</h4>
+<h4>Modificar datos de contacto del cliente @Model.NombreCompleto</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -28,13 +28,14 @@
                 <span asp-validation-for="Direccion" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="FechaAlta" />
+            <p></p>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Guardar cambios" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
+<p></p>
 <div>
     <a asp-controller="Clientes" asp-action="Details" asp-route-id=@Model.Id>Volver</a>
 </div>

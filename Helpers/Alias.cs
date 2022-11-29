@@ -2,6 +2,7 @@
 {
     public static class Alias
     {
+        public const string AnioLanzamiento = "Año de lanzamiento";
         public const string ButacasDisponibles = "Butacas disponibles";
         public const string CantidadDeButacas = "Cantidad de butacas";
         public const string CapacidadDeButacas = "Capacidad de butacas";
@@ -12,7 +13,6 @@
         public const string EstadoReserva = "Estado de la reserva";
         public const string FechaAltaCliente = "Fecha de alta";
         public const string FechaAltaReserva = "Fecha de creación de la reseva";
-        public const string FechaLanzamiento = "Fecha de lanzamiento";
         public const string FechaSala = "Día y hora de la función";
         public const string Genero = "Género";
         public const string NumeroSala = "Número de sala";

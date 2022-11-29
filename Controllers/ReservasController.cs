@@ -37,7 +37,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // GET: Reservas
         public async Task<IActionResult> MisReservas()
         {
-            if (!_signInManager.IsSignedIn(User) || _context.Reservas == null)
+            if (!_signInManager.IsSignedIn(User) || _context.Reservas == null || User.IsInRole(Configs.Empleado))
             {
                 return NotFound();
             }

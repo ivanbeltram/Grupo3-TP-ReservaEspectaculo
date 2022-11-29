@@ -19,7 +19,8 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
         [Display(Name = Alias.Genero)]
         public Genero Genero { get; set; }
         [Required(ErrorMessage = MensajesDeError.Requerido)]
-        [Display(Name = Alias.FechaLanzamiento)]
+        [Display(Name = Alias.AnioLanzamiento)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy}")]
         public DateTime FechaLanzamiento { get; set; }
         public List<Sala> Salas { get; set; }
         public Pelicula()

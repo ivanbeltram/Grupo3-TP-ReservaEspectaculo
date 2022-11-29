@@ -27,6 +27,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
         public Pelicula Pelicula { get; set; }
         [Required(ErrorMessage = MensajesDeError.Requerido)]
         [Display(Name = Alias.FechaSala)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
         public DateTime Fecha { get; set; }
         public string DetalleSoloSala
         {

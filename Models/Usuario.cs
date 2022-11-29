@@ -48,6 +48,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
 
 		[Display(Name = Alias.FechaAltaCliente)]
 		[DataType(DataType.DateTime)]
+		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 		public DateTime FechaAlta { get; set; }
 
 	}

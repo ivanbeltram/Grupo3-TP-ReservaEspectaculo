@@ -28,6 +28,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
 
         [Required(ErrorMessage = MensajesDeError.Requerido)]
         [Display(Name = Alias.FechaAltaReserva)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FechaAlta { get; set; }
 
         private string getEstadoToString()

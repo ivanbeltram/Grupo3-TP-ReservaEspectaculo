@@ -5,14 +5,13 @@
 }
 
 <p></p>
+
 <h2>Listado de todos los clientes</h2>
 
-@if (User.IsInRole(Configs.Empleado))
-{
-    <p>
-        <a asp-action="Create">Crear un nuevo cliente</a>
-    </p>
-}
+<p>
+    <a asp-action="Create">Crear un nuevo cliente</a>
+</p>
+
 <table class="table">
     <thead>
         <tr>

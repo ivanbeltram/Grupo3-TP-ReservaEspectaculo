@@ -4,10 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<p></p>
 
 <div>
-    <h4>Reserva</h4>
+    <h4>Detalles de la reserva</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -73,13 +73,13 @@
     }
     @if (User.IsInRole(Configs.Cliente))
     {
-    <a asp-action="MisReservas">Volver</a>
+    <a asp-action="MisReservas">Volver al listado</a>
     }
     else
     {
     @if (User.IsInRole(Configs.Empleado))
     {
-    <a asp-action="Index">Volver</a>
+    <a asp-action="Index">Volver al listado</a>
     }
     }
 </div>

@@ -68,21 +68,6 @@
                             <a class="nav-link" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
                         </li>
                         }
-                        @if (signInManager.IsSignedIn(User))
-                        {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="CerrarSesion">Cerrar sesión</a>
-                        </li>
-                        }
-                        else
-                        {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Registrar">Registrarse</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="IniciarSesion">Iniciar sesión</a>
-                        </li>
-                        }
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Institucional">Sobre nosotres</a>
                         </li>
@@ -91,10 +76,22 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Account" asp-action="MiCuenta">Cuenta: @User.Identity.Name.ToString()</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="CerrarSesion">Cerrar sesión</a>
+                        </li>
+                        }
+                        else
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="IniciarSesion">Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Registrar">Registrarse</a>
+                        </li>
                         }
                     </ul>
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control me-2" type="search" placeholder="Título de la película" aria-label="Search">
                         <button class="btn btn-outline-success" onClick="obtenerAPI()" type="submit">Buscar</button>
                     </form>
                 </div>
@@ -129,7 +126,7 @@
 </body>
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2022 - ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>  <a asp-action="Seed" asp-controller="PreCarga" class="btn btn-sm btn-info">Pre Carga Db</a>
+        &copy; 2022 - ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Políticas de privacidad</a> <a asp-action="Seed" asp-controller="PreCarga" class="btn btn-sm btn-info">Pre Carga Db</a>
     </div>
 </footer>
 

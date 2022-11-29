@@ -138,6 +138,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 {
                     _context.Salas.Update(sala);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Details", "Salas", new { id = sala.Id });
                 }
                 catch (DbUpdateConcurrencyException)
                 {

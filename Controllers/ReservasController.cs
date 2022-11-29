@@ -79,7 +79,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         public IActionResult Create()
         {
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto");
-            ViewData["ClienteIdCreate"] = new SelectList(_context.Clientes.Where(c => c.Email.ToString().Equals(User.Identity.Name.ToString())), "Id", "NombreCompleto");
+            ViewData["ClienteIdCreate"] = new SelectList(_context.Clientes.Where(c => c.Email == User.Identity.Name.ToString()), "Id", "NombreCompleto");
             ViewData["SalaId"] = new SelectList(_context.Salas.Include(s => s.Pelicula), "Id", "DetalleSalaConPelicula");
             return View();
         }
@@ -131,7 +131,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 }
             }
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto");
-            ViewData["ClienteIdCreate"] = new SelectList(_context.Clientes.Where(c => c.Email.ToString().Equals(User.Identity.Name.ToString())), "Id", "NombreCompleto");
+            ViewData["ClienteIdCreate"] = new SelectList(_context.Clientes.Where(c => c.Email == User.Identity.Name.ToString()), "Id", "NombreCompleto");
             ViewData["SalaId"] = new SelectList(_context.Salas.Include(s => s.Pelicula), "Id", "DetalleSala", nuevaReserva.SalaId);
             return View(nuevaReserva);
         }
@@ -193,7 +193,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                             else
                             {
                                 ModelState.AddModelError(string.Empty, MensajesDeError.ReservaYaCancelada);
-                                return View();
+                                return View(reserva);
                             }
                         }
                     }
@@ -214,11 +214,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                         throw;
                     }
                 }
-                if (User.IsInRole(Configs.Cliente))
-                {
-                    return RedirectToAction(nameof(MisReservas));
-                }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = reserva.Id });
             }
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto", reserva.ClienteId);
             ViewData["SalaId"] = new SelectList(_context.Salas.Include(s => s.Pelicula), "Id", "NumeroDeSala", reserva.SalaId);
@@ -261,6 +257,10 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             if (reserva != null)
             {
                 Sala s = _context.Salas.Find(reserva.SalaId);
+                if (reserva.Activa)
+                {
+                    s.RecuperoDeButacasPorCancelacionDeReserva(reserva.CantidadButacas);
+                }
                 s.EliminarReserva(reserva.ClienteId);
                 Cliente c = _context.Clientes.Find(reserva.ClienteId);
                 c.EliminarReserva(reserva);

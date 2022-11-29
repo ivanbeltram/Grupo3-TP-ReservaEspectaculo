@@ -46,6 +46,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
 		[Display(Name = Alias.Direccion)]
 		public string Direccion { get; set; }
 
+		[Required(ErrorMessage = MensajesDeError.Requerido)]
 		[Display(Name = Alias.FechaAltaCliente)]
 		[DataType(DataType.DateTime)]
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]

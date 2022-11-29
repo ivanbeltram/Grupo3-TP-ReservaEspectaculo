@@ -111,6 +111,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
 
                     _context.Empleados.Update(empleadoEnDb);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Details", "Empleados", new { id = empleado.Id });
                 }
                 catch (DbUpdateConcurrencyException)
                 {

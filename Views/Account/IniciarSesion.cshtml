@@ -4,8 +4,9 @@
 	ViewData["Title"] = "Iniciar sesión";
 }
 
-<h1>@ViewData["Title"]</h1>
+<p></p>
 
+<h2>@ViewData["Title"]</h2>
 <hr />
 
 <div class="row">
@@ -22,11 +23,13 @@
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+            <p></p>
             <div class="form-group">
                 <label asp-for="Recordarme" class="form-check-label"></label>
                 <input asp-for="Recordarme" class="form-check-label" />
                 <span asp-validation-for="Recordarme" class="text-danger"></span>
             </div>
+            <p></p>
 			<div class="form-group">
 				<input type="submit" value="Login" class="btn btn-primary" />
 			</div>

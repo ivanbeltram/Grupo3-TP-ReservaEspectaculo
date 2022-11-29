@@ -1,13 +1,13 @@
 ﻿@model RegistroUsuario
 
 @{
-	ViewData["Title"] = "Registrar";
+	ViewData["Title"] = "Registrarse";
     List<Rol> listaDeRoles = _cineContext.Roles.ToList();
 }
 
-<h1>@ViewData["Title"]</h1>
+<p></p>
 
-<h4>Registración</h4>
+<h2>@ViewData["Title"]</h2>
 <hr />
 
 <div class="row">
@@ -53,6 +53,7 @@
 				<input asp-for="ConfirmacionPassword" class="form-control" />
 				<span asp-validation-for="ConfirmacionPassword" class="text-danger"></span>
 			</div>
+			<p></p>
 			<div class="form-group">
 				<input type="submit" value="Registrar" class="btn btn-primary" />
 			</div>

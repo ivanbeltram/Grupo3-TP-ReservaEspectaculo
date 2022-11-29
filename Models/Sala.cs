@@ -89,7 +89,6 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
             Reserva reservaPorEliminar = BuscarReserva(clienteId);
             if (reservaPorEliminar != null)
             {
-                RecuperoDeButacasPorCancelacionDeReserva(reservaPorEliminar.CantidadButacas);
                 Reservas.Remove(reservaPorEliminar);
                 eliminarReserva = true;
             }

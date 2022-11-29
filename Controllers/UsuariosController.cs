@@ -102,6 +102,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 {
                     _context.Usuarios.Update(usuario);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Details", "Usuarios", new { id = usuario.Id });
                 }
                 catch (DbUpdateConcurrencyException)
                 {

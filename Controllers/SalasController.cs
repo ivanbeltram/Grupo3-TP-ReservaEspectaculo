@@ -39,6 +39,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
 
             var sala = await _context.Salas
                 .Include(s => s.Pelicula)
+                .Include(s => s.Reservas)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sala == null)
             {
@@ -46,7 +47,8 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             }
 
             ViewBag.Pelicula = _context.Peliculas.Where(p => p.Id == sala.PeliculaId).ToList();
-            ViewBag.reservasDeLaSala = _context.Reservas.Include(r => r.Cliente).Include(r => r.Sala).Include(r => r.Sala.Pelicula).Where(r => r.SalaId == id).ToList();
+            ViewBag.reservasActivasDeLaSala = _context.Reservas.Include(r => r.Cliente).Include(r => r.Sala).Include(r => r.Sala.Pelicula).Where(r => r.SalaId == id).Where(r => r.Activa == true).ToList();
+            ViewBag.reservasInactivasDeLaSala = _context.Reservas.Include(r => r.Cliente).Include(r => r.Sala).Include(r => r.Sala.Pelicula).Where(r => r.SalaId == id).Where(r => r.Activa == false).ToList();
 
             return View(sala);
         }

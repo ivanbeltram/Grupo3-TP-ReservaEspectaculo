@@ -3,7 +3,8 @@
 @{
     ViewData["Title"] = "Details";
     List<Pelicula> pelicula = (List<Pelicula>)ViewBag.Pelicula;
-    List<Reserva> reservasDeLaSala = (List<Reserva>)ViewBag.reservasDeLaSala;
+    List<Reserva> reservasActivasDeLaSala = (List<Reserva>)ViewBag.reservasActivasDeLaSala;
+    List<Reserva> reservasInactivasDeLaSala = (List<Reserva>)ViewBag.reservasInactivasDeLaSala;
 }
 
 <h1>Details</h1>
@@ -54,24 +55,41 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Fecha)
         </dd>
-        @if (reservasDeLaSala.Count != 0)
+        @if (User.IsInRole(Configs.Empleado))
         {
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Reservas)
-            </dt>
+        <dt class = "col-sm-2">Reservas activas</dt>
+        @if (reservasActivasDeLaSala.Count != 0)
+        {
             <dd class = "col-sm-10"></dd>
-            @foreach (var reserva in reservasDeLaSala)
+            @foreach (var reserva in reservasActivasDeLaSala)
             {
                 <dt class = "col-sm-2"></dt>
                 <dd class = "col-sm-10">
-                <h8>@Html.ActionLink(@reserva.DetalleClienteConCantidadDeButacasActivas.ToString(), "Details", "Reservas", new { id = @reserva.Id })</h8>
+                <h8>@Html.ActionLink(@reserva.DetalleClienteConCantidadDeButacas.ToString(), "Details", "Reservas", new { id = @reserva.Id })</h8>
+                </dd>
+            }
+        } 
+        else
+        {
+            <dd class = "col-sm-10">@MensajesDeError.SalaSinReservasActivas</dd>
+        }
+        <dt class = "col-sm-2">Reservas inactivas</dt>
+        @if (reservasInactivasDeLaSala.Count != 0)
+        {
+            <dd class = "col-sm-10"></dd>
+            @foreach (var reserva in reservasInactivasDeLaSala)
+            {
+                <dt class = "col-sm-2"></dt>
+                <dd class = "col-sm-10">
+                <h8>@Html.ActionLink(@reserva.DetalleClienteConCantidadDeButacas.ToString(), "Details", "Reservas", new { id = @reserva.Id })</h8>
                 </dd>
             }
         } 
         else
         {
             <dt class = "col-sm-2"></dt>
-            <dd class = "col-sm-10">@MensajesDeError.SalaSinReservas</dd>
+            <dd class = "col-sm-10">@MensajesDeError.SalaSinReservasInactivas</dd>
+        }
         }
     </dl>
 </div>

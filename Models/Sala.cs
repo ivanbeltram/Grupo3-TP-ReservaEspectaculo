@@ -53,18 +53,13 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
         {
             Reservas = new List<Reserva>();
         }
-        private bool ButacasSuficientes(int cantidadButacas)
+        public bool ButacasSuficientes(int cantidadButacas)
         {
             return ButacasDisponibles >= cantidadButacas;
         }
-        public bool OtorgarButacas(int cantidadButacas)
+        private void OtorgarButacas(int cantidadButacas)
         {
-            bool butacasSuficientes = ButacasSuficientes(cantidadButacas);
-            if (butacasSuficientes)
-            {
                 ButacasDisponibles -= cantidadButacas;
-            }
-            return butacasSuficientes;
         }
         public bool RecuperoDeButacasPorCancelacionDeReserva(int cantidadButacas)
         {
@@ -76,9 +71,16 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
             }
             return recuperoDeButacas;
         }
-        public void AgregarReserva(Reserva reserva)
+        public bool AgregarReserva(Reserva reserva)
         {
-            Reservas.Add(reserva);
+            bool reservaAgregada = false;
+            if (reserva != null && ButacasSuficientes(reserva.CantidadButacas))
+            {
+                OtorgarButacas(reserva.CantidadButacas);
+                Reservas.Add(reserva);
+                reservaAgregada = true;
+            }
+            return reservaAgregada;
         }
         public bool EliminarReserva(int clienteId)
         {

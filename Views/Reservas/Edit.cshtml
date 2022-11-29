@@ -16,14 +16,14 @@
             <input type="hidden" asp-for="SalaId" />
             <input type="hidden" asp-for="ClienteId" />
             <input type="hidden" asp-for="CantidadButacas" />
+            <input type="hidden" asp-for="Activa" />
+            <input type="hidden" asp-for="FechaAlta" />
             <p></p>
             <div>¿Está seguro de que desea cancelar su reserva?</div>
             <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Activa" />
-                </label>
+                <label class="form-check-label"></label>
+                <input class="form-check-input" name="ConfirmarCancelacion" type="checkbox" value="true" />
             </div>
-            <input type="hidden" asp-for="FechaAlta" />
             <p></p>
             <div class="form-group">
                 <input type="submit" value="Cancelar reserva" class="btn btn-primary" />

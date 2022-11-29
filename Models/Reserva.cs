@@ -34,7 +34,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
         {
             return Activa ? "Activa" : "Inactiva";
         }
-        public string DetalleClienteConCantidadDeButacasActivas
+        public string DetalleClienteConCantidadDeButacas
         {
             get
             {

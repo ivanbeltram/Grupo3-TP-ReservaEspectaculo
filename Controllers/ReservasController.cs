@@ -96,7 +96,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 if (!ClienteConReservaActiva(nuevaReserva.ClienteId))
                 {
                     Sala SalaSeleccionada = _context.Salas.Find(nuevaReserva.SalaId);
-                    if (SalaSeleccionada.OtorgarButacas(nuevaReserva.CantidadButacas))
+                    if (SalaSeleccionada.ButacasSuficientes(nuevaReserva.CantidadButacas))
                     {
                         Reserva r = new Reserva()
                         {
@@ -106,10 +106,12 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                             Activa = true,
                             FechaAlta = DateTime.Today
                         };
-                        SalaSeleccionada.AgregarReserva(r);
+                        _context.Reservas.Add(r);
+                        await _context.SaveChangesAsync();
                         Cliente c = _context.Clientes.Find(nuevaReserva.ClienteId);
                         c.Reservar(r);
-                        _context.Reservas.Add(r);
+                        Reserva reservaAgregada = _context.Reservas.ToList().ElementAt(_context.Reservas.ToList().Count() - 1);
+                        SalaSeleccionada.AgregarReserva(reservaAgregada);
                         await _context.SaveChangesAsync();
                         return RedirectToAction(nameof(Index));
                     }
@@ -153,7 +155,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,SalaId,ClienteId,CantidadButacas,Activa,FechaAlta")] Reserva reserva)
+        public async Task<IActionResult> Edit(bool ConfirmarCancelacion, int id, [Bind("Id,SalaId,ClienteId,CantidadButacas,Activa,FechaAlta")] Reserva reserva)
         {
             if (id != reserva.Id)
             {
@@ -164,20 +166,37 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
             {
                 try
                 {
-                    if (reserva.Activa)
+                    if (ConfirmarCancelacion != null)
                     {
-                        Sala s = _context.Salas.Find(reserva.SalaId);
-                        if (s.EliminarReserva(reserva.ClienteId))
-                          {
-                            reserva.Activa = !reserva.Activa;
+                        if (!ConfirmarCancelacion)
+                        {
                             _context.Reservas.Update(reserva);
                             await _context.SaveChangesAsync();
                         }
                         else
                         {
-                            ModelState.AddModelError(string.Empty, MensajesDeError.ReservaYaCancelada);
-                            return View();
+                            if (reserva.Activa)
+                            {
+                                Sala s = _context.Salas.Find(reserva.SalaId);
+//                                List<Sala> lista = _context.Salas.Include(s => s.Reservas).Where(s => s.Id == reserva.SalaId).ToList();
+//                                Sala s = lista.ElementAt(0);
+//                                s.EliminarReserva(reserva.ClienteId);
+                                s.RecuperoDeButacasPorCancelacionDeReserva(reserva.CantidadButacas);
+                                reserva.Activa = !reserva.Activa;
+                                _context.Reservas.Update(reserva);
+                                await _context.SaveChangesAsync();
+                            }
+                            else
+                            {
+                                ModelState.AddModelError(string.Empty, MensajesDeError.ReservaYaCancelada);
+                                return View();
+                            }
                         }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, MensajesDeError.ConfirmacionCancelacionReservaNull);
+                        return View();
                     }
                 }
                 catch (DbUpdateConcurrencyException)

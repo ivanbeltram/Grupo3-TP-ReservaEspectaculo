@@ -122,11 +122,17 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                     else
                     {
                         ModelState.AddModelError(string.Empty, MensajesDeError.ButacasInsuficientes);
+                        ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto");
+                        ViewData["ClienteIdCreate"] = new SelectList(_context.Clientes.Where(c => c.Email == User.Identity.Name.ToString()), "Id", "NombreCompleto");
+                        ViewData["SalaId"] = new SelectList(_context.Salas.Include(s => s.Pelicula), "Id", "DetalleSalaConPelicula");
                         return View();
                     }
                 } else
                 {
                     ModelState.AddModelError(string.Empty, MensajesDeError.ClienteConReserva);
+                    ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto");
+                    ViewData["ClienteIdCreate"] = new SelectList(_context.Clientes.Where(c => c.Email == User.Identity.Name.ToString()), "Id", "NombreCompleto");
+                    ViewData["SalaId"] = new SelectList(_context.Salas.Include(s => s.Pelicula), "Id", "DetalleSalaConPelicula");
                     return View();
                 }
             }

@@ -22,6 +22,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
 
         [Required(ErrorMessage = MensajesDeError.Requerido)]
         [Display(Name = Alias.CantidadDeButacas)]
+        [Range(Alias.MinButacasPorReserva, Alias.MaxButacasPorReserva, ErrorMessage = MensajesDeError.CantidadDeButacasDeReservaInvalida)]
         public int CantidadButacas { get; set; }
 
         public bool Activa { get; set; }

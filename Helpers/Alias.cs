@@ -15,6 +15,8 @@
         public const string FechaAltaReserva = "Fecha de creación de la reseva";
         public const string FechaSala = "Día y hora de la función";
         public const string Genero = "Género";
+        public const int MaxButacasPorReserva = 5;
+        public const int MinButacasPorReserva = 1;
         public const string NumeroSala = "Número de sala";
         public const string Password = "Contraseña";
         public const string PasswordConfirm = "Confirmación de contraseña";

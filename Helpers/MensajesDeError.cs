@@ -5,6 +5,7 @@
         public const string ButacasInsuficientes = "La sala no cuenta con butacas suficientes.";
         public const string ClienteConReserva = "No es posible generar la nueva reserva debido a que el cliente ya cuenta con una reserva activa.";
         public const string ClienteSinReservas = "Este cliente no realizó ninguna reserva.";
+        public const string CantidadDeButacasDeReservaInvalida = "La cantidad de butacas debe estar comprendida entre {1} y {2}.";
         public const string ConfirmacionCancelacionReservaNull = "Debe decidir si confirma o no la cancelación de la reserva.";
         public const string DetalleReserva = "No es posible obtener el detalle de la reserva.";
         public const string DetalleSala = "No es posible obtener el detalle de la sala.";

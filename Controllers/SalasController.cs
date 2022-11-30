@@ -94,6 +94,7 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, MensajesDeError.SalaEnUso);
+                    ViewData["PeliculaId"] = new SelectList(_context.Peliculas, "Id", "Titulo");
                     return View();
                 }
             }

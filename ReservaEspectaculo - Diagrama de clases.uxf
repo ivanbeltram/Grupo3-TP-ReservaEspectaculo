@@ -1,0 +1,63 @@
+<diagram program="umletino" version="15.0.0"><zoom_level>8</zoom_level><element><id>UMLClass</id><coordinates><x>192</x><y>48</y><w>168</w><h>152</h></coordinates><panel_attributes>Usuario
+--
++Id: int
++Nombre: string
++Apellido: string
++NombreCompleto: string
++Email: string
++Password: string
++Dni: string
++Telefono: string
++Direccion: string
++FechaAlta: DateTime
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>440</x><y>48</y><w>168</w><h>152</h></coordinates><panel_attributes>Cliente
+--
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>192</x><y>280</y><w>168</w><h>152</h></coordinates><panel_attributes>Empleado
+--
++Legajo: string
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>688</x><y>48</y><w>168</w><h>152</h></coordinates><panel_attributes>Reserva
+--
++Id: int
++SalaId: int
++ClienteId: int
++CantidadButacas: int
++Activa: bool
++FechaAlta: DateTime
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>120</y><w>104</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
++Reservas
+m1=0...*</panel_attributes><additional_attributes>110;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>776</x><y>192</y><w>48</w><h>104</h></coordinates><panel_attributes>lt=&lt;-
++Sala
+m1=1</panel_attributes><additional_attributes>10;110;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>88</y><w>104</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
++Cliente
+m1=1</panel_attributes><additional_attributes>10;20;110;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>688</x><y>488</y><w>168</w><h>152</h></coordinates><panel_attributes>Pelicula
+--
++Id: int
++Titulo: string
++Descripción: string
++GeneroId: int
++FechaLanzamiento: DateTime
++Salas: List&lt;Sala&gt;
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>728</x><y>192</y><w>72</w><h>104</h></coordinates><panel_attributes>lt=&lt;-
++Reservas
+m1=0...*</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>776</x><y>416</y><w>64</w><h>88</h></coordinates><panel_attributes>lt=&lt;-
++Pelicula
+m1=1</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>728</x><y>416</y><w>48</w><h>88</h></coordinates><panel_attributes>lt=&lt;-
++Salas
+m1=0...*</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>440</x><y>488</y><w>168</w><h>152</h></coordinates><panel_attributes>Genero
+--
++Id: int
++nombre: string
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>528</y><w>104</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
++Peliculas
+m1=0...*</panel_attributes><additional_attributes>110;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>688</x><y>280</y><w>168</w><h>144</h></coordinates><panel_attributes>Sala
+--
++int NumeroDeSala: int
++TipoSala: string
++CapacidadButacas: int
++ButacasDisponibles: int
++Confirmada: bool
++PeliculaID: int
++Fecha: DateTime
+-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>560</y><w>104</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
++Genero
+m1=1</panel_attributes><additional_attributes>10;20;110;20</additional_attributes></element><element><id>Relation</id><coordinates><x>352</x><y>112</y><w>104</w><h>24</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;110;10</additional_attributes></element><element><id>Relation</id><coordinates><x>272</x><y>192</y><w>24</w><h>104</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element></diagram>

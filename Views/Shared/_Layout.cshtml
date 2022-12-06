@@ -2,13 +2,12 @@
     List<Genero> listaDeGeneros = _cineContext.Generos.ToList();
 }
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo</title>
+    <title>@ViewData["Title"] - CinemaORT</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
@@ -118,12 +117,10 @@
                     pelis = movies
                 });
             console.log(pelis)
-
-
-
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 <footer class="border-top footer text-muted">
     <div class="container">
         &copy; 2022 - ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Políticas de privacidad</a> <a asp-action="Seed" asp-controller="PreCarga" class="btn btn-sm btn-info">Pre Carga Db</a>

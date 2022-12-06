@@ -7,10 +7,12 @@ namespace ORT_PNT1_Proyecto_2022_2C_I_ReservaEspectaculo.Models
     public class Usuario : IdentityUser<int>
 	{
 		[Required(ErrorMessage = MensajesDeError.Requerido)]
+		[StringLength(15)]
 		[RegularExpression(@"[a-zA-Z áéíóú]*", ErrorMessage = MensajesDeError.StrSoloAlfab)]
 		public string Nombre { get; set; }
 
 		[Required(ErrorMessage = MensajesDeError.Requerido)]
+		[StringLength(15)]
 		[RegularExpression(@"[a-zA-Z áéíóú]*", ErrorMessage = MensajesDeError.StrSoloAlfab)]
 		public string Apellido { get; set; }
 

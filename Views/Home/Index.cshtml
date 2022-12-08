@@ -1,63 +1,140 @@
 ﻿@{
-    ViewData["Title"] = "Página principal";
-    List<SelectListItem> listaDeGeneros = (List<SelectListItem>)ViewBag.listaDeGeneros;
-    List<Pelicula> listaDePeliculas = (List<Pelicula>)ViewBag.listaDePeliculas;
+	ViewData["Title"] = "Página principal";
+	List<SelectListItem> listaDeGeneros = (List<SelectListItem>)ViewBag.listaDeGeneros;
+	List<Pelicula> listaDePeliculas = (List<Pelicula>)ViewBag.listaDePeliculas;
 }
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="~/css/estilos.css" asp-append-version="true" />
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
 </head>
+<body>
+	<main>
+		<div><p></p></div>
+		<div class="informacion-principal">
+			<div class="contenedor">
+				<h3 class="titulo">Salas 3D y 4D</h3>
+				<p class="descripcion">
+					Disfrute de las mejores películas en nuestras nuevas salas 3D y 4D, que cuentan con unos más que confortables sillones reclinables. Viva una experiencia única con la magia del cine en dos, tres y cuatro dimensiones.
+				</p>
+				<a asp-area="" asp-controller="Salas" asp-action="Index">
+				<button role="button" class="boton"><i class="fas fa-info-circle"></i>Ver todas las salas</button>
+				</a>
+			</div>
+		</div>
 
+		<div class="peliculas-recomendadas contenedor">
+			<div class="contenedor-titulo-controles">
+				<h3>Películas en cartelera</h3>
+				<div class="indicadores"></div>
+			</div>
 
+			<div class="contenedor-principal">
+				<button role="button" id="flecha-izquierda" class="flecha-izquierda"><i class="fas fa-angle-left"></i></button>
 
-<p></p>
-<header>
-    <section class="textos-header">
-        <h1 class="display-4">Bienvenides a CinemaORT</h1>
-    </section>
-@*    <div class="wave" style="height: 150px; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M0.00,49.99 C150.00,150.00 349.20,-49.99 500.00,49.99 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: #08f;"></path></svg></div>*@
-</header>
-
-<div class="text-center">
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div id="todas-las-peliculas">
-                    <div class="card" style="width: 80rem; height:10rem;">
-                        <img src="" class="card-img-top" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">¡Este es tu cine!</h5>
-                            <p class="card-text">Ven a ver las mejores películas.</p>
-                            <a class="btn btn-primary" asp-area="" asp-controller="Peliculas" asp-action="Index">Ver películas disponibles</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
- 
-            @foreach (var pelicula in listaDePeliculas)
-            {
-            <div class="carousel-item">
-                <div id=@pelicula.Titulo>
-                    <div class="card" style="width: 80rem; height:10rem;">
-                        <img src="" class="card-img-top" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">@pelicula.Titulo</h5>
-                            <p class="card-text">@pelicula.Descripcion</p>
-                            <a class="btn btn-primary" asp-controller="Peliculas" asp-action="Details" asp-route-id="@pelicula.Id">Ver salas disponibles</a>
-@*                          <a class="btn btn-primary">@Html.ActionLink("Ver salas disponibles", "Details", "Peliculas", new { id = @pelicula.Id })</a>*@
-                        </div>
-                    </div>
-                </div>
-            </div>
-            }
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-</div>
+				<div class="contenedor-carousel">
+					<div class="carousel">
+						@foreach (var pelicula in listaDePeliculas)
+						{
+							<div class="pelicula">
+								<a asp-controller="Peliculas" asp-action="Details" asp-route-id="@pelicula.Id">
+									@if (@pelicula.Titulo.ToString().Equals("¡Sí señor!"))
+									{
+										<img src="img/Cartelera/¡Sí señor!.jpg" alt="">
+									}
+									else
+									{
+									@if(@pelicula.Titulo.ToString().Equals("Boku no Hero Academia: Misión mundial de héroes")){
+										<img src="img/Cartelera/Boku no Hero Academia_ Misión mundial de héroes.jpg" alt="">
+									}
+									else
+									{
+									@if(@pelicula.Titulo.ToString().Equals("Dragon Ball Z: La batalla de los dioses")){
+										<img src="img/Cartelera/Dragon Ball Z_ La batalla de los dioses.jpg" alt="">
+									}
+									else
+									{
+									@if(@pelicula.Titulo.ToString().Equals("E.T.")){
+										<img src="img/Cartelera/E.T..jpg" alt="">
+									}
+									else
+									{
+									@if(@pelicula.Titulo.ToString().Equals("El Conjuro")){
+										<img src="img/Cartelera/El Conjuro.jpg" alt="">
+									}
+									else
+									{
+									@if(@pelicula.Titulo.ToString().Equals("El Exorcismo de Emily Rose")){
+										<img src="img/Cartelera/El Exorcismo de Emily Rose.jpg" alt="">
+									}
+									else
+									{
+									@if(@pelicula.Titulo.ToString().Equals("El Padrino (parte 1)")){
+										<img src="img/Cartelera/El Padrino (parte 1).jpg" alt="">
+									}
+									else
+									{
+									@if(@pelicula.Titulo.ToString().Equals("Indiana Jones en busca del arca perdida")){
+										<img src="img/Cartelera/Indiana Jones en busca del arca perdida.jpg" alt="">
+									}
+									else
+									{
+									@if(@pelicula.Titulo.ToString().Equals("La isla siniestra")){
+										<img src="img/Cartelera/La isla siniestra.jpg" alt="">
+									}
+									else
+									{
+									@if(@pelicula.Titulo.ToString().Equals("Michael Jackson: This is it")){
+										<img src="img/Cartelera/Michael Jackson_ This is it.jpg" alt="">
+									}
+									else
+									{
+									@if(@pelicula.Titulo.ToString().Equals("Parásitos")){
+										<img src="img/Cartelera/Parásitos.jpg" alt="">
+									}
+									else
+									{
+									@if(@pelicula.Titulo.ToString().Equals("Rambo")){
+										<img src="img/Cartelera/Rambo.jpg" alt="">
+									}
+									else
+									{
+									@if(@pelicula.Titulo.ToString().Equals("Terminator")){
+										<img src="img/Cartelera/Terminator.jpg" alt="">
+									}
+									else
+									{
+										<img src="img/Cartelera/Imagen no disponible.png" alt="">
+									}
+									}
+									}
+									}
+									}
+									}
+									}
+									}
+									}
+									}
+									}
+									}
+									}
+								</a>
+							</div>
+						}
+						<div class="pelicula">
+							<a asp-area="" asp-controller="Peliculas" asp-action="Index"><img src="img/Cartelera/Ver todas las películas.jpg" alt=""></a>
+						</div>
+					</div>
+				</div>
+				<button role="button" id="flecha-derecha" class="flecha-derecha"><i class="fas fa-angle-right"></i></button>
+			</div>
+		</div>
+	</main>
+	<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>

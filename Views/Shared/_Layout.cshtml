@@ -73,7 +73,16 @@
                         @if (signInManager.IsSignedIn(User))
                         {
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="MiCuenta">Cuenta: @User.Identity.Name.ToString()</a>
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="MiCuenta">
+                                    @if (User.IsInRole(Configs.Empleado))
+                                    {
+                                        <span>Empleado:</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Cliente:</span>
+                                    }
+                                    @User.Identity.Name.ToString()</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Account" asp-action="CerrarSesion">Cerrar sesión</a>
@@ -105,8 +114,8 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
+@*    <script src="~/js/site.js" asp-append-version="true"></script>*@
+<script>
         let pelis
 
             fetch("https://api.themoviedb.org/3/movie/popular?api_key=7e925b5abdc74a44a98a5d9bee65e2ea&language=en-US&page=1")
@@ -117,7 +126,7 @@
                     pelis = movies
                 });
             console.log(pelis)
-    </script>
+</script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
